@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Quick Sports</title>
+<meta name='description' content='Fast sports updates in simple words.'>
+
+<style>
+:root{
+  --bg:#f6f8ff;
+  --panel:#ffffff;
+  --card:#ffffff;
+  --text:#0b1220;
+  --muted:#5b6472;
+  --border:#e6e8f2;
+  --link:#0b57d0;
+  --accent:#ff2d55;     /* energetic */
+  --accent2:#2f6bff;    /* sporty */
+  --shadow: 0 14px 28px rgba(11,18,32,.08);
+  --radius: 18px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(900px 380px at 12% -10%, rgba(255,45,85,.18), transparent 60%),
+    radial-gradient(900px 380px at 88% -10%, rgba(47,107,255,.18), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  line-height:1.55;
+}
+
+a{color:var(--link); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.container{
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 14px 44px;
+}
+
+/* Top bar */
+.nav{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(246,248,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner{
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 14px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width: 210px;
+}
+.brand img{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 6px;
+}
+.brand h1{
+  margin:0;
+  font-size: 18px;
+  letter-spacing:-0.3px;
+}
+.brand p{
+  margin:0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Search */
+.controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex: 1;
+  justify-content:flex-end;
+  min-width: 240px;
+}
+.search{
+  width: min(560px, 100%);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(11,18,32,.06);
+}
+.search input{
+  width:100%;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  font-size: 14px;
+}
+.pill{
+  display:none;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space:nowrap;
+}
+@media (min-width: 860px){
+  .pill{display:inline-flex}
+}
+
+/* Hero */
+.hero{
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(255,45,85,.08), rgba(47,107,255,.08));
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.hero-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap: 10px;
+  flex-wrap:wrap;
+}
+.hero h2{
+  margin:0;
+  font-size: 20px;
+  letter-spacing:-0.35px;
+}
+.hero .desc{
+  margin:6px 0 0;
+  color: var(--muted);
+  max-width: 75ch;
+  font-size: 14px;
+}
+.counter{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Section label */
+.section-title{
+  margin: 16px 4px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .25px;
+  text-transform: uppercase;
+}
+
+/* Top Story */
+.topstory{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 940px){
+  .topstory{ grid-template-columns: 1.35fr .65fr; }
+}
+.topcard{
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+}
+.topimg{
+  width:100%;
+  height: min(48vw, 380px);
+  object-fit: cover;
+  display:block;
+  border-bottom: 1px solid var(--border);
+  background: #eef2ff;
+}
+.topbody{ padding: 14px; display:flex; flex-direction:column; gap:10px; }
+.kicker{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  align-items:center;
+  color: var(--muted);
+  font-size: 12px;
+}
+.badge{
+  display:inline-flex;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 999px;
+}
+.badge.hot{
+  border-color: rgba(255,45,85,.25);
+  background: rgba(255,45,85,.10);
+  color: #b10e2d;
+}
+.toptitle{
+  margin:0;
+  font-size: 18px;
+  letter-spacing:-0.25px;
+}
+ul.bullets{ margin: 0 0 0 18px; padding:0; }
+ul.bullets li{ margin: 6px 0; color: #1a2438; }
+.why{
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  color: #334155;
+  font-size: 13px;
+}
+.btn{
+  margin-top: 2px;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-size: 13px;
+}
+.btn.primary{
+  border: none;
+  background: linear-gradient(135deg, var(--accent), #ff6a00);
+  color: #fff;
+}
+.btn:hover{ text-decoration:none; transform: translateY(-1px); }
+.btn.primary:hover{ filter: brightness(0.98); }
+.infocard{ padding: 14px; }
+.infocard p{ margin:0; color: var(--muted); font-size: 14px; }
+.quick-stats{
+  display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+}
+.stat{
+  padding:8px 10px;
+  border:1px dashed rgba(47,107,255,.35);
+  border-radius: 14px;
+  background: rgba(47,107,255,.06);
+  font-size: 12px;
+  color:#1f3a8a;
+}
+
+/* Story grid */
+.grid{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 720px){
+  .grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1040px){
+  .grid{ grid-template-columns: 1fr 1fr 1fr; }
+}
+.card{
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  display:flex;
+  flex-direction:column;
+  min-height: 240px;
+}
+.card-media{
+  border-bottom: 1px solid var(--border);
+  background: #eef2ff;
+}
+.card-media img{
+  width:100%;
+  height: 180px;
+  object-fit: cover;
+  display:block;
+}
+.card-body{
+  padding: 12px 12px 14px;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+.title{
+  margin:0;
+  font-size: 15px;
+  letter-spacing:-0.2px;
+}
+.actions{ margin-top:auto; display:flex; justify-content:flex-end; }
+
+.footer{
+  margin-top: 22px;
+  text-align:center;
+  color: var(--muted);
+  font-size: 12px;
+}
+.hidden{ display:none; }
+</style>
+
+
+<script>
+function filterCards(){
+  const q = (document.getElementById('q').value || '').toLowerCase().trim();
+
+  const cards = document.querySelectorAll('.card');
+  let shown = 0;
+  cards.forEach(c => {
+    const hay = (c.getAttribute('data-hay') || '').toLowerCase();
+    const ok = !q || hay.includes(q);
+    c.classList.toggle('hidden', !ok);
+    if(ok) shown++;
+  });
+
+  const top = document.getElementById('topstory');
+  if(top){
+    const hayTop = (top.getAttribute('data-hay') || '').toLowerCase();
+    const okTop = !q || hayTop.includes(q);
+    top.classList.toggle('hidden', !okTop);
+  }
+
+  document.getElementById('count').textContent = shown;
+}
+window.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('q');
+  input.addEventListener('input', filterCards);
+  filterCards();
+});
+</script>
+
+</head><body>
+<div class='nav'><div class='nav-inner'>
+<div class='brand'>
+<img src='logo.png' alt='Quick Sports logo'>
+<div>
+<h1>Quick Sports</h1>
+<p>Fast sports updates in simple words.</p>
+</div></div>
+<div class='controls'>
+<div class='search'>⚡ <input id='q' placeholder='Search teams, players, tournaments…' autocomplete='off'></div>
+<div class='pill'>Updated: 2026-03-02 16:58</div>
+</div>
+</div></div>
+<div class='container'>
+<div class='hero'>
+<div class='hero-top'>
+<div>
+<h2>Today’s Sports Feed</h2>
+<div class='desc'>Short bullets + key info. Tap a headline to read the full story at the source.</div>
+</div>
+<div class='counter'>Showing <span id='count'>0</span> stories</div>
+</div></div>
+<div class='section-title'>Top story</div>
+<div class='topstory' id='topstory' data-hay='Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga Harry Kane scored twice again and Bayern Munich opened an 11-point lead in the Bundesliga with a 3-2 win at Borussia Dortmund in Der Klassiker on Saturday. Harry Kane scored twice again and Bayern Munich opened an 11-point lead in the Bundesliga with a 3-2 win at Borussia Dortmund in Der Klassiker on Saturday. Joshua Kimmich let fly with his left boot to score the winner with a volley in the 87th minute, just four minutes after Daniel Svensson equalized for Dortmund with a brilliant volley inside the left post. Nico Schlotterbeck put Dortmund 1-0 up at the break, but Serge Gnabry set up Kane's response and the England star got his second from the penalty spot - after a foul by Schlotterbeck on Josip Stanišić - to take his league tally to 30 goals… Dortmund disappointed It's the second painful defeat for Dortmund in as many games after its Champions League exit to Atalanta on Wednesday despite going into their playoff second leg with a 2-0 advantage. The Himalayan Times Sports'>
+<article class='topcard'>
+<a href='https://thehimalayantimes.com/sports/kane-scores-2-more-as-bayern-beats-dortmund-in-klassiker-to-open-11-point-lead-in-bundesliga' target='_blank' rel='noopener'><img class='topimg' src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/02/46307.jpg' alt='top story image'></a>
+<div class='topbody'>
+<div class='kicker'>
+<span class='badge hot'>🔥 Top</span>
+<span class='badge'>Sports</span>
+</div>
+<h3 class='toptitle'><a href='https://thehimalayantimes.com/sports/kane-scores-2-more-as-bayern-beats-dortmund-in-klassiker-to-open-11-point-lead-in-bundesliga' target='_blank' rel='noopener'>Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga</a></h3>
+<ul class='bullets'>
+<li>Harry Kane scored twice again and Bayern Munich opened an 11-point lead in the Bundesliga with a 3-2 win at Borussia Dortmund in Der Klassiker on Saturday.</li>
+<li>Joshua Kimmich let fly with his left boot to score the winner with a volley in the 87th minute, just four minutes after Daniel Svensson equalized for Dortmund with a brilliant volley inside the left post.</li>
+<li>Nico Schlotterbeck put Dortmund 1-0 up at the break, but Serge Gnabry set up Kane's response and the England star got his second from the penalty spot - after a foul by Schlotterbeck on Josip Stanišić - to take his league tally to 30 goals…</li>
+<li>Dortmund disappointed It's the second painful defeat for Dortmund in as many games after its Champions League exit to Atalanta on Wednesday despite going into their playoff second leg with a 2-0 advantage.</li>
+</ul>
+<div class='why'><b>Why it matters:</b> Harry Kane scored twice again and Bayern Munich opened an 11-point lead in the Bundesliga with a 3-2 win at Borussia Dortmund in Der Klassiker on Saturday.</div>
+<div style='display:flex; gap:10px; flex-wrap:wrap;'>
+<a class='btn primary' href='https://thehimalayantimes.com/sports/kane-scores-2-more-as-bayern-beats-dortmund-in-klassiker-to-open-11-point-lead-in-bundesliga' target='_blank' rel='noopener'>Read full story →</a>
+<a class='btn' href='https://thehimalayantimes.com/sports/kane-scores-2-more-as-bayern-beats-dortmund-in-klassiker-to-open-11-point-lead-in-bundesliga' target='_blank' rel='noopener'>Open source</a>
+</div>
+</div></article>
+<aside class='topcard infocard'>
+<div class='kicker'>
+<span class='badge'>About Quick Sports</span>
+<span class='badge'>Free • Auto</span>
+</div>
+<p>Quick Sports collects sports stories, grabs the main image, and summarizes into simple bullets.</p>
+<div class='quick-stats'>
+<div class='stat'>📱 Mobile-first design</div>
+<div class='stat'>⚡ Search by team/player</div>
+<div class='stat'>🕒 Updates every 30 mins</div>
+</div>
+<div style='margin-top:12px; font-size:12px; color:var(--muted);'>
+Last update: 2026-03-02 16:58
+</div>
+</aside>
+</div>
+<div class='section-title'>More stories</div>
+<div class='grid'>
+<article class='card' data-hay='Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies Defending champion and co-host India got the last semifinal spot at cricket's T20 World Cup after a five-wicket win over West Indies in the Super Eights on Sunday with four balls remaining. Defending champion and co-host India got the last semifinal spot at cricket's T20 World Cup after a five-wicket win over West Indies in the Super Eights on Sunday with four balls remaining. After West Indies lost the toss and posted a challenging 195-4, opener Sanju Samson led India to 199-5 in 19.2 overs with a belligerent unbeaten 97 off 50 balls in front of a home crowd of 68,000 at Kolkata's Eden Gardens. South Africa stays unbeaten All-rounder George Linde – brought in for the game to rest Keshav Maharaj – picked up 1-22 in three overs and then scored a crucial 30 not out off 21 balls batting at No. Dewald Brevis hit 42 off 18 balls with four sixes, while Tristan Stubbs anchored the innings home with 21 not out off 24 balls, as South Africa finished with 154-5 in 17.5 overs. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/samson-powers-india-to-semifinals-at-t20-world-cup-with-5-wicket-win-over-west-indies' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/01/46306.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/samson-powers-india-to-semifinals-at-t20-world-cup-with-5-wicket-win-over-west-indies' target='_blank' rel='noopener'>Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies</a></h3>
+<ul class='bullets'>
+<li>Defending champion and co-host India got the last semifinal spot at cricket's T20 World Cup after a five-wicket win over West Indies in the Super Eights on Sunday with four balls remaining.</li>
+<li>After West Indies lost the toss and posted a challenging 195-4, opener Sanju Samson led India to 199-5 in 19.2 overs with a belligerent unbeaten 97 off 50 balls in front of a home crowd of 68,000 at Kolkata's Eden Gardens.</li>
+<li>South Africa stays unbeaten All-rounder George Linde – brought in for the game to rest Keshav Maharaj – picked up 1-22 in three overs and then scored a crucial 30 not out off 21 balls batting at No.</li>
+</ul>
+<div class='why'><b>Why:</b> Defending champion and co-host India got the last semifinal spot at cricket's T20 World Cup after a five-wicket win over West Indies in the Super Eights on Sunday with four balls remaining.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/samson-powers-india-to-semifinals-at-t20-world-cup-with-5-wicket-win-over-west-indies' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Bodø/Glimt gets Sporting in Champions League round of 16. Real Madrid and Man City paired yet again Bodø/Glimt's stunning run as the most unlikely Champions League challenger in recent years now brings Sporting Lisbon to its Arctic Circle home in the round of 16 next month. Bodø/Glimt's stunning run as the most unlikely Champions League challenger in recent years now brings Sporting Lisbon to its Arctic Circle home in the round of 16 next month. Bodø/Glimt evaded a possible quick rematch with Manchester City when the 2023 title winner was paired with Real Madrid yet again in Friday's draw. It will be the fifth straight year that record 15-time European champion Madrid and Man City clash in the knockout phase, and they also met in December in the league phase. Man City's 3-1 loss in the Norwegian fishing town last month sent Bodø/Glimt on a four-win surge in the Champions League - all during the Norwegian offseason - capped by eliminating Inter Milan from the knockout playoffs round in San Siro t… The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/bodglimt-gets-sporting-in-champions-league-round-of-16-real-madrid-and-man-city-paired-yet-again' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/27/46269.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/bodglimt-gets-sporting-in-champions-league-round-of-16-real-madrid-and-man-city-paired-yet-again' target='_blank' rel='noopener'>Bodø/Glimt gets Sporting in Champions League round of 16. Real Madrid and Man City paired yet again</a></h3>
+<ul class='bullets'>
+<li>Bodø/Glimt's stunning run as the most unlikely Champions League challenger in recent years now brings Sporting Lisbon to its Arctic Circle home in the round of 16 next month.</li>
+<li>Bodø/Glimt evaded a possible quick rematch with Manchester City when the 2023 title winner was paired with Real Madrid yet again in Friday's draw.</li>
+<li>It will be the fifth straight year that record 15-time European champion Madrid and Man City clash in the knockout phase, and they also met in December in the league phase.</li>
+</ul>
+<div class='why'><b>Why:</b> Bodø/Glimt's stunning run as the most unlikely Champions League challenger in recent years now brings Sporting Lisbon to its Arctic Circle home in the round of 16 next month.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/bodglimt-gets-sporting-in-champions-league-round-of-16-real-madrid-and-man-city-paired-yet-again' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='India crushes Zimbabwe to revive T20 World Cup hopes. Unbeaten South Africa advances to semifinals India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. South Africa beat West Indies by nine wickets to ad… India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. South Africa beat West Indies by nine wickets to ad… Hardik Pandya scored 50 not out off 23 balls, Tilak Varma smashed 44 not out off only 16 deliveries and Abhishek Sharma found form with a 30-ball 55 in defending champion India's 256-4 in 20 overs - second only to Sri Lanka's 260-6 against… India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. India hit 17 sixes in all – its highest in a T20 World Cup innings - after Zimbabwe won the toss and opted to bowl. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/india-crushes-zimbabwe-to-revive-t20-world-cup-hopes-unbeaten-south-africa-advances-to-semifinals' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/27/46267.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/india-crushes-zimbabwe-to-revive-t20-world-cup-hopes-unbeaten-south-africa-advances-to-semifinals' target='_blank' rel='noopener'>India crushes Zimbabwe to revive T20 World Cup hopes. Unbeaten South Africa advances to semifinals</a></h3>
+<ul class='bullets'>
+<li>India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. South Africa beat West Indies by nine wickets to ad…</li>
+<li>Hardik Pandya scored 50 not out off 23 balls, Tilak Varma smashed 44 not out off only 16 deliveries and Abhishek Sharma found form with a 30-ball 55 in defending champion India's 256-4 in 20 overs - second only to Sri Lanka's 260-6 against…</li>
+<li>India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday.</li>
+</ul>
+<div class='why'><b>Why:</b> India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. South Africa beat West Indies by nine wickets to ad…</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/india-crushes-zimbabwe-to-revive-t20-world-cup-hopes-unbeaten-south-africa-advances-to-semifinals' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Dortmund takes on Bayern but will der Klassiker live up to its name? Der Klassiker is in danger of not living up to its name. Der Klassiker is in danger of not living up to its name. The growing gulf between Bayern Munich and Borussia Dortmund means German soccer's showpiece presents more of an opportunity for Bayern to display its superiority than for Dortmund to mount a genuine challenge to the Bavarian powerhouse. Dortmund hosts Bayern on Saturday for a meeting of the Bundesliga's top two, but it's unlikely to have any impact on the title race. In Dortmund's case it was to Bayern, 2-1 in the reverse fixture in Munich in October. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/dortmund-takes-on-bayern-but-will-der-klassiker-live-up-to-its-name' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/26/46253.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/dortmund-takes-on-bayern-but-will-der-klassiker-live-up-to-its-name' target='_blank' rel='noopener'>Dortmund takes on Bayern but will der Klassiker live up to its name?</a></h3>
+<ul class='bullets'>
+<li>Der Klassiker is in danger of not living up to its name.</li>
+<li>The growing gulf between Bayern Munich and Borussia Dortmund means German soccer's showpiece presents more of an opportunity for Bayern to display its superiority than for Dortmund to mount a genuine challenge to the Bavarian powerhouse.</li>
+<li>Dortmund hosts Bayern on Saturday for a meeting of the Bundesliga's top two, but it's unlikely to have any impact on the title race.</li>
+</ul>
+<div class='why'><b>Why:</b> Der Klassiker is in danger of not living up to its name.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/dortmund-takes-on-bayern-but-will-der-klassiker-live-up-to-its-name' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Unbeaten South Africa crushes West Indies by 9 wickets at T20 World Cup South Africa took a giant leap toward the Twenty20 World Cup semifinals after a dominant nine-wicket win over the high-flying West Indies on Thursday. South Africa took a giant leap toward the Twenty20 World Cup semifinals after a dominant nine-wicket win over the high-flying West Indies on Thursday. A whirlwind 95-run opening partnership between captain Aiden Markram (82 not out) and Quinton de Kock (47) in eight overs made short work of the chase. Ryan Rickelton added 45 not out and South Africa motored to 177-1 in 16.1 overs and stre… Ryan Rickelton added 45 not out and South Africa motored to 177-1 in 16.1 overs and stretched its unbeaten record in the tournament to six games, four of the wins in Ahmedabad. The Proteas play Zimbabwe in their last second-round game on Sunday, when the West Indies, which lost its first game in the tournament, faces co-host India. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/unbeaten-south-africa-crushes-west-indies-by-9-wickets-at-t20-world-cup' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/26/46252.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/unbeaten-south-africa-crushes-west-indies-by-9-wickets-at-t20-world-cup' target='_blank' rel='noopener'>Unbeaten South Africa crushes West Indies by 9 wickets at T20 World Cup</a></h3>
+<ul class='bullets'>
+<li>South Africa took a giant leap toward the Twenty20 World Cup semifinals after a dominant nine-wicket win over the high-flying West Indies on Thursday.</li>
+<li>A whirlwind 95-run opening partnership between captain Aiden Markram (82 not out) and Quinton de Kock (47) in eight overs made short work of the chase. Ryan Rickelton added 45 not out and South Africa motored to 177-1 in 16.1 overs and stre…</li>
+<li>Ryan Rickelton added 45 not out and South Africa motored to 177-1 in 16.1 overs and stretched its unbeaten record in the tournament to six games, four of the wins in Ahmedabad.</li>
+</ul>
+<div class='why'><b>Why:</b> South Africa took a giant leap toward the Twenty20 World Cup semifinals after a dominant nine-wicket win over the high-flying West Indies on Thursday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/unbeaten-south-africa-crushes-west-indies-by-9-wickets-at-t20-world-cup' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='United Cements pledges Rs 500,000 for treatment of national women's football captain Samba United Cements Ltd. has said financial assistance of Rs 500,000 for the medical treatment of Sabitra Bhandari, captain of Nepal's national women's football team. United Cements Ltd. has said financial assistance of Rs 500,000 for the medical treatment of Sabitra Bhandari, captain of Nepal's national women's football team. The company, a subsidiary of the KL Dugar Group, said the support was extended following public appeals after Bhandari sustained a serious knee injury that has kept her off the field. She has been undergoing rehabilitation for the past seve… The company, a subsidiary of the KL Dugar Group, said the support was extended following public appeals after Bhandari sustained a serious knee injury that has kept her off the field. In a statement, United Cements described Bhandari as a source of national pride who has played a pivotal role in elevating Nepali women's football on the international stage. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/united-cements-pledges-rs-500000-for-treatment-of-national-womens-football-captain-samba' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/25/46217.png' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/united-cements-pledges-rs-500000-for-treatment-of-national-womens-football-captain-samba' target='_blank' rel='noopener'>United Cements pledges Rs 500,000 for treatment of national women's football captain Samba</a></h3>
+<ul class='bullets'>
+<li>United Cements Ltd. has said financial assistance of Rs 500,000 for the medical treatment of Sabitra Bhandari, captain of Nepal's national women's football team.</li>
+<li>The company, a subsidiary of the KL Dugar Group, said the support was extended following public appeals after Bhandari sustained a serious knee injury that has kept her off the field. She has been undergoing rehabilitation for the past seve…</li>
+<li>The company, a subsidiary of the KL Dugar Group, said the support was extended following public appeals after Bhandari sustained a serious knee injury that has kept her off the field.</li>
+</ul>
+<div class='why'><b>Why:</b> United Cements Ltd. has said financial assistance of Rs 500,000 for the medical treatment of Sabitra Bhandari, captain of Nepal's national women's football team.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/united-cements-pledges-rs-500000-for-treatment-of-national-womens-football-captain-samba' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Barcelona pounces on Real Madrid stumble and regains lead of La Liga with 3-0 win over Levante Barcelona took advantage of Real Madrid's stumble and regained the Spanish league lead with a comfortable 3-0 win over relegation-threatened Levante on Sunday. Barcelona took advantage of Real Madrid's stumble and regained the Spanish league lead with a comfortable 3-0 win over relegation-threatened Levante on Sunday. Marc Bernal, Frenkie de Jong and Fermín López scored a goal each as Barcelona ended a two-game losing streak to get back in front of rival Madrid, which lost 2-1 at Osasuna on Saturday. Barcelona moved one point ahead of Madrid, which had won eight in a row in the league before losing to Osasuna. Barcelona was coming off a 2-1 loss to Girona in the league and a 4-0 loss to Atletico Madrid in the first leg of the Copa del Rey semifinals. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/barcelona-pounces-on-real-madrid-stumble-and-regains-lead-of-la-liga-with-3-0-win-over-levante' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/23/46177.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/barcelona-pounces-on-real-madrid-stumble-and-regains-lead-of-la-liga-with-3-0-win-over-levante' target='_blank' rel='noopener'>Barcelona pounces on Real Madrid stumble and regains lead of La Liga with 3-0 win over Levante</a></h3>
+<ul class='bullets'>
+<li>Barcelona took advantage of Real Madrid's stumble and regained the Spanish league lead with a comfortable 3-0 win over relegation-threatened Levante on Sunday.</li>
+<li>Marc Bernal, Frenkie de Jong and Fermín López scored a goal each as Barcelona ended a two-game losing streak to get back in front of rival Madrid, which lost 2-1 at Osasuna on Saturday.</li>
+<li>Barcelona moved one point ahead of Madrid, which had won eight in a row in the league before losing to Osasuna.</li>
+</ul>
+<div class='why'><b>Why:</b> Barcelona took advantage of Real Madrid's stumble and regained the Spanish league lead with a comfortable 3-0 win over relegation-threatened Levante on Sunday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/barcelona-pounces-on-real-madrid-stumble-and-regains-lead-of-la-liga-with-3-0-win-over-levante' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='T20 World Cup co-hosts lose as South Africa ends India's winning run and England beats Sri Lanka South Africa stunned T20 World Cup defending champion India with a 76-run victory on Sunday in the Super Eights with the tournament co-host dismissed for 111. South Africa stunned T20 World Cup defending champion India with a 76-run victory on Sunday in the Super Eights with the tournament co-host dismissed for 111. It was a completely dominant performance from the Proteas, which lost to India in the final of the 2024 edition. Sunday proved to be a dismal day for both co-hosts at the T20 World Cup as Sri Lanka crashed to a 51-run defeat to England in Pallekele. Dewald Brevis hit 45 runs off 29 balls, and put on 97 off 50 balls with Miller for the fourth wicket to change the momentum. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/t20-world-cup-co-hosts-lose-as-south-africa-ends-indias-winning-run-and-england-beats-sri-lanka' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/23/46173.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/t20-world-cup-co-hosts-lose-as-south-africa-ends-indias-winning-run-and-england-beats-sri-lanka' target='_blank' rel='noopener'>T20 World Cup co-hosts lose as South Africa ends India's winning run and England beats Sri Lanka</a></h3>
+<ul class='bullets'>
+<li>South Africa stunned T20 World Cup defending champion India with a 76-run victory on Sunday in the Super Eights with the tournament co-host dismissed for 111.</li>
+<li>It was a completely dominant performance from the Proteas, which lost to India in the final of the 2024 edition.</li>
+<li>Sunday proved to be a dismal day for both co-hosts at the T20 World Cup as Sri Lanka crashed to a 51-run defeat to England in Pallekele.</li>
+</ul>
+<div class='why'><b>Why:</b> South Africa stunned T20 World Cup defending champion India with a 76-run victory on Sunday in the Super Eights with the tournament co-host dismissed for 111.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/t20-world-cup-co-hosts-lose-as-south-africa-ends-indias-winning-run-and-england-beats-sri-lanka' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Harry Kane scores 2 goals, concedes penalty as Bayern holds on to extend Bundesliga lead Harry Kane scored twice but conceded a penalty as Bayern Munich held on to beat Eintracht Frankfurt 3-2 to extend its Bundesliga lead on Saturday. Harry Kane scored twice but conceded a penalty as Bayern Munich held on to beat Eintracht Frankfurt 3-2 to extend its Bundesliga lead on Saturday. Borussia Dortmund failed to keep pace as it was held 2-2 at Leipzig in the late game. Fábio Silva scored in stoppage time for Dortmund to salvage a point before it faces Bayern at home in "der Klassiker" next Saturday. But Bayern's win means Dortmund has fallen eight points behind the defending champion and that it will take an unlikely collapse from Vincent Kompany's team in the final 11 rounds to stop the Bavarian powerhouse from celebrating again. Bayern relief Aleksandar Pavlović scored early against Frankfurt and Bayern seemed to be cruising when Kane scored his league-leading 27th and 28th goals of the season, one in each half. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/harry-kane-scores-2-goals-concedes-penalty-as-bayern-holds-on-to-extend-bundesliga-lead' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46146.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/harry-kane-scores-2-goals-concedes-penalty-as-bayern-holds-on-to-extend-bundesliga-lead' target='_blank' rel='noopener'>Harry Kane scores 2 goals, concedes penalty as Bayern holds on to extend Bundesliga lead</a></h3>
+<ul class='bullets'>
+<li>Harry Kane scored twice but conceded a penalty as Bayern Munich held on to beat Eintracht Frankfurt 3-2 to extend its Bundesliga lead on Saturday.</li>
+<li>Borussia Dortmund failed to keep pace as it was held 2-2 at Leipzig in the late game. Fábio Silva scored in stoppage time for Dortmund to salvage a point before it faces Bayern at home in "der Klassiker" next Saturday.</li>
+<li>But Bayern's win means Dortmund has fallen eight points behind the defending champion and that it will take an unlikely collapse from Vincent Kompany's team in the final 11 rounds to stop the Bavarian powerhouse from celebrating again.</li>
+</ul>
+<div class='why'><b>Why:</b> Harry Kane scored twice but conceded a penalty as Bayern Munich held on to beat Eintracht Frankfurt 3-2 to extend its Bundesliga lead on Saturday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/harry-kane-scores-2-goals-concedes-penalty-as-bayern-holds-on-to-extend-bundesliga-lead' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Man City keeps pressure on Premier League leader Arsenal with win over Newcastle The pressure is on Arsenal after Manchester City cut its lead at the top of the Premier League to two points on Saturday. The pressure is on Arsenal after Manchester City cut its lead at the top of the Premier League to two points on Saturday. Second-place City beat Newcastle 2-1 to turn the heat up on the title race. City on the march The momentum is with City at the top of the standings having cut back Arsenal's lead, which was nine points earlier this month. It took an 88th-minute equalizer from substitute Tammy Abraham to rescue a point for Villa - but the draw means Unai Emery's team could be cut further adrift of Arsenal and Manchester City at the top of the standings. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/man-city-keeps-pressure-on-premier-league-leader-arsenal-with-win-over-newcastle' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46141.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/man-city-keeps-pressure-on-premier-league-leader-arsenal-with-win-over-newcastle' target='_blank' rel='noopener'>Man City keeps pressure on Premier League leader Arsenal with win over Newcastle</a></h3>
+<ul class='bullets'>
+<li>The pressure is on Arsenal after Manchester City cut its lead at the top of the Premier League to two points on Saturday.</li>
+<li>Second-place City beat Newcastle 2-1 to turn the heat up on the title race.</li>
+<li>City on the march The momentum is with City at the top of the standings having cut back Arsenal's lead, which was nine points earlier this month.</li>
+</ul>
+<div class='why'><b>Why:</b> The pressure is on Arsenal after Manchester City cut its lead at the top of the Premier League to two points on Saturday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/man-city-keeps-pressure-on-premier-league-leader-arsenal-with-win-over-newcastle' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='T20 World Cup: Phil Salt and Will Jacks lead England past Sri Lanka in Super 8s Phil Salt and Will Jacks provided England a perfect start in the Super Eights as co-host Sri Lanka crashed to a 51-run defeat on Sunday. Phil Salt and Will Jacks provided England a perfect start in the Super Eights as co-host Sri Lanka crashed to a 51-run defeat on Sunday. Salt anchored England to 146-9 with a resolute 62 off 40 balls and Jacks provided impetus to the total by smashing four boundaries in his 21-run knock in the death overs. Jofra Archer (2-20) struck with a vital blow in his second over when Pathum Nissanka, who scored a century against Australia at the same venue during a group game, flicked a 150 kph delivery straight to deep mid-wicket. Captain Dasun Shanaka top-scored with 30 but fell to a brilliant relay catch when Jacks caught the ball above his head while running back and tossed the ball back to Tom Banton to complete the catch before Jacks went over the ropes. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/t20-world-cup-phil-salt-and-will-jacks-lead-england-past-sri-lanka-in-super-8s' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46140.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/t20-world-cup-phil-salt-and-will-jacks-lead-england-past-sri-lanka-in-super-8s' target='_blank' rel='noopener'>T20 World Cup: Phil Salt and Will Jacks lead England past Sri Lanka in Super 8s</a></h3>
+<ul class='bullets'>
+<li>Phil Salt and Will Jacks provided England a perfect start in the Super Eights as co-host Sri Lanka crashed to a 51-run defeat on Sunday.</li>
+<li>Salt anchored England to 146-9 with a resolute 62 off 40 balls and Jacks provided impetus to the total by smashing four boundaries in his 21-run knock in the death overs.</li>
+<li>Jofra Archer (2-20) struck with a vital blow in his second over when Pathum Nissanka, who scored a century against Australia at the same venue during a group game, flicked a 150 kph delivery straight to deep mid-wicket.</li>
+</ul>
+<div class='why'><b>Why:</b> Phil Salt and Will Jacks provided England a perfect start in the Super Eights as co-host Sri Lanka crashed to a 51-run defeat on Sunday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/t20-world-cup-phil-salt-and-will-jacks-lead-england-past-sri-lanka-in-super-8s' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Millsberry Inter A-Level Basketball Tournament 2026 concludes with Malpi Institute dominating both finals The Millsberry Inter A-Level Basketball Tournament 2026 wrapped up successfully on Sunday, showcasing top-level competition, teamwork, and sportsmanship among leading A-Level institutions. The Millsberry Inter A-Level Basketball Tournament 2026 wrapped up successfully on Sunday, showcasing top-level competition, teamwork, and sportsmanship among leading A-Level institutions. In the Girls' Final, Malpi Institute beat Global College 4–2 in a tightly contested match, demonstrating strong defense and composure under pressure. Srijana Giri of Malpi Institute was named the Most Valuable Player (MVP) for her outstandi… In the Girls' Final, Malpi Institute beat Global College 4–2 in a tightly contested match, demonstrating strong defense and composure under pressure. Malpi Institute emerged victorious with a 19–13 win, with Saeran Shrestha earning the MVP title for his exceptional contribution on the court. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/millsberry-inter-a-level-basketball-tournament-2026-concludes-with-malpi-institute-dominating-both-finals' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46137.png' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/millsberry-inter-a-level-basketball-tournament-2026-concludes-with-malpi-institute-dominating-both-finals' target='_blank' rel='noopener'>Millsberry Inter A-Level Basketball Tournament 2026 concludes with Malpi Institute dominating both finals</a></h3>
+<ul class='bullets'>
+<li>The Millsberry Inter A-Level Basketball Tournament 2026 wrapped up successfully on Sunday, showcasing top-level competition, teamwork, and sportsmanship among leading A-Level institutions.</li>
+<li>In the Girls' Final, Malpi Institute beat Global College 4–2 in a tightly contested match, demonstrating strong defense and composure under pressure. Srijana Giri of Malpi Institute was named the Most Valuable Player (MVP) for her outstandi…</li>
+<li>In the Girls' Final, Malpi Institute beat Global College 4–2 in a tightly contested match, demonstrating strong defense and composure under pressure.</li>
+</ul>
+<div class='why'><b>Why:</b> The Millsberry Inter A-Level Basketball Tournament 2026 wrapped up successfully on Sunday, showcasing top-level competition, teamwork, and sportsmanship among leading A-Level institutions.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/millsberry-inter-a-level-basketball-tournament-2026-concludes-with-malpi-institute-dominating-both-finals' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Barcelona hosts Levante in La Liga looking to rebound from consecutive losses Barcelona has to tighten up the defense to halt a two-game losing streak and stay close to Real Madrid in the fight for the La Liga title. Barcelona has to tighten up the defense to halt a two-game losing streak and stay close to Real Madrid in the fight for the La Liga title. Barcelona hosts second-to-last Levante on Sunday after conceding six goals in its last two matches. It lost 4-0 to Atletico Madrid in the Copa del Rey and 2-1 to Girona on Monday that cost Barcelona the league lead. Lamine Yamal missed a pe… Barcelona was fortunate against Atletico in the first leg of the Copa semifinals to be down only 4-0 by halftime on the run of play. "They started with a lot of intensity and by scoring an early goal it disrupted our plans and from then on it was very difficult for us to be protagonists in the game," Cubarsí said about the loss to Atletico. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/barcelona-hosts-levante-in-la-liga-looking-to-rebound-from-consecutive-losses' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/20/46086.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/barcelona-hosts-levante-in-la-liga-looking-to-rebound-from-consecutive-losses' target='_blank' rel='noopener'>Barcelona hosts Levante in La Liga looking to rebound from consecutive losses</a></h3>
+<ul class='bullets'>
+<li>Barcelona has to tighten up the defense to halt a two-game losing streak and stay close to Real Madrid in the fight for the La Liga title.</li>
+<li>Barcelona hosts second-to-last Levante on Sunday after conceding six goals in its last two matches. It lost 4-0 to Atletico Madrid in the Copa del Rey and 2-1 to Girona on Monday that cost Barcelona the league lead. Lamine Yamal missed a pe…</li>
+<li>Barcelona was fortunate against Atletico in the first leg of the Copa semifinals to be down only 4-0 by halftime on the run of play.</li>
+</ul>
+<div class='why'><b>Why:</b> Barcelona has to tighten up the defense to halt a two-game losing streak and stay close to Real Madrid in the fight for the La Liga title.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/barcelona-hosts-levante-in-la-liga-looking-to-rebound-from-consecutive-losses' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Arsenal blows two-goal lead at Wolves to boost Man City's Premier League title chances Arsenal blew a two-goal lead at last-place Wolves on Wednesday to give a huge boost to Manchester City in the race for the Premier League title. Arsenal blew a two-goal lead at last-place Wolves on Wednesday to give a huge boost to Manchester City in the race for the Premier League title. The league leader was held to a surprise 2-2 draw at Molineux, having led 2-0 in the second half. Arsenal has led the way for the majority of the season and one bookmaker paid out on Mikel Arteta's team winning the title after it opened up a nine-point lead earlier this month. But Wednesday's result was the latest sign that it is feeling the pressure, having finished runner-up in each of the last three seasons. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/arsenal-blows-two-goal-lead-at-wolves-to-boost-man-citys-premier-league-title-chances' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/19/46074.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/arsenal-blows-two-goal-lead-at-wolves-to-boost-man-citys-premier-league-title-chances' target='_blank' rel='noopener'>Arsenal blows two-goal lead at Wolves to boost Man City's Premier League title chances</a></h3>
+<ul class='bullets'>
+<li>Arsenal blew a two-goal lead at last-place Wolves on Wednesday to give a huge boost to Manchester City in the race for the Premier League title.</li>
+<li>The league leader was held to a surprise 2-2 draw at Molineux, having led 2-0 in the second half.</li>
+<li>Arsenal has led the way for the majority of the season and one bookmaker paid out on Mikel Arteta's team winning the title after it opened up a nine-point lead earlier this month.</li>
+</ul>
+<div class='why'><b>Why:</b> Arsenal blew a two-goal lead at last-place Wolves on Wednesday to give a huge boost to Manchester City in the race for the Premier League title.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/arsenal-blows-two-goal-lead-at-wolves-to-boost-man-citys-premier-league-title-chances' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Champions League playoffs: Bodø/Glimt stuns Inter Milan, Gordon hits four as Newcastle routs Qarabag Tiny Bodø/Glimt produced another Champions League shock by stunning last year's beaten finalist Inter Milan 3-1 in the playoffs on Wednesday. Tiny Bodø/Glimt produced another Champions League shock by stunning last year's beaten finalist Inter Milan 3-1 in the playoffs on Wednesday. The Norwegian underdog followed up back-to-back wins against Manchester City and Atletico Madrid by securing a two-goal advantage going into next week's second leg in Milan. After booking its place in the playoffs with wins against City and Atletico, it strengthened its chances of advancing to the round of 16 with victory against Italian league leader Inter. Inter was a beaten finalist in two of the last three seasons, but now faces a major test to advance to the next round. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/champions-league-playoffs-bodglimt-stuns-inter-milan-gordon-hits-four-as-newcastle-routs-qarabag' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/19/46073.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/champions-league-playoffs-bodglimt-stuns-inter-milan-gordon-hits-four-as-newcastle-routs-qarabag' target='_blank' rel='noopener'>Champions League playoffs: Bodø/Glimt stuns Inter Milan, Gordon hits four as Newcastle routs Qarabag</a></h3>
+<ul class='bullets'>
+<li>Tiny Bodø/Glimt produced another Champions League shock by stunning last year's beaten finalist Inter Milan 3-1 in the playoffs on Wednesday.</li>
+<li>The Norwegian underdog followed up back-to-back wins against Manchester City and Atletico Madrid by securing a two-goal advantage going into next week's second leg in Milan.</li>
+<li>After booking its place in the playoffs with wins against City and Atletico, it strengthened its chances of advancing to the round of 16 with victory against Italian league leader Inter.</li>
+</ul>
+<div class='why'><b>Why:</b> Tiny Bodø/Glimt produced another Champions League shock by stunning last year's beaten finalist Inter Milan 3-1 in the playoffs on Wednesday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/champions-league-playoffs-bodglimt-stuns-inter-milan-gordon-hits-four-as-newcastle-routs-qarabag' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Pakistan qualifies for Super 8s at the T20 World Cup. India and South Africa stay perfect Sahibzada Farhan hit his first century in the format and Usman Tariq confused Namibia with mystery spin as Pakistan got a Super 8 spot at cricket's Twenty20 World Cup with a 102-run win on Wednesday. Sahibzada Farhan hit his first century in the format and Usman Tariq confused Namibia with mystery spin as Pakistan got a Super 8 spot at cricket's Twenty20 World Cup with a 102-run win on Wednesday. Elsewhere, defending champions India beat the Netherlands by 17 runs to finish unbeaten in Group A, while South Africa chased down a victory target of 123 with 40 balls to spare against the United Arab Emirates to remain undefeated in Group… Captain Salman Ali Agha hit 38 while Farhan and Shadab Khan (36 not out) carried Pakistan to 199-3 against Namibia in Group A. Tariq, who has a distinctive pause-and-bowl action, then took 4-16 and Khan took 3-19 as Namibia was dismissed fo… Namibia opener Louren Steenkamp top-scored in the chase with a 22-ball 23 and Alexander Busing-Volschenk (20) was the other batter to reach double figures as Pakistan's spinners struck at regular intervals. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/pakistan-qualifies-for-super-8s-at-the-t20-world-cup-india-and-south-africa-stay-perfect' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/19/46062.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/pakistan-qualifies-for-super-8s-at-the-t20-world-cup-india-and-south-africa-stay-perfect' target='_blank' rel='noopener'>Pakistan qualifies for Super 8s at the T20 World Cup. India and South Africa stay perfect</a></h3>
+<ul class='bullets'>
+<li>Sahibzada Farhan hit his first century in the format and Usman Tariq confused Namibia with mystery spin as Pakistan got a Super 8 spot at cricket's Twenty20 World Cup with a 102-run win on Wednesday.</li>
+<li>Elsewhere, defending champions India beat the Netherlands by 17 runs to finish unbeaten in Group A, while South Africa chased down a victory target of 123 with 40 balls to spare against the United Arab Emirates to remain undefeated in Group…</li>
+<li>Captain Salman Ali Agha hit 38 while Farhan and Shadab Khan (36 not out) carried Pakistan to 199-3 against Namibia in Group A. Tariq, who has a distinctive pause-and-bowl action, then took 4-16 and Khan took 3-19 as Namibia was dismissed fo…</li>
+</ul>
+<div class='why'><b>Why:</b> Sahibzada Farhan hit his first century in the format and Usman Tariq confused Namibia with mystery spin as Pakistan got a Super 8 spot at cricket's Twenty20 World Cup with a 102-run win on Wednesday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/pakistan-qualifies-for-super-8s-at-the-t20-world-cup-india-and-south-africa-stay-perfect' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Zimbabwe beat Sri Lanka and join West Indies in finishing T20 World Cup group stage unbeaten Brian Bennett finished what captain Sikandar Raza started as Zimbabwe beat Sri Lanka by six wickets to head into the T20 World Cup Super Eights unbeaten on Thursday. Brian Bennett finished what captain Sikandar Raza started as Zimbabwe beat Sri Lanka by six wickets to head into the T20 World Cup Super Eights unbeaten on Thursday. Zimbabwe topped a Group B including former champions Sri Lanka and Australia. Sri Lanka opted to bat first and notched 178-7 and Zimbabwe overhauled it with 182-4 and three balls to spare. Zimbabwe was behind the chase for most of the game until Raza hit four sixes and two boundaries in 45 off 26 balls to catch up with the asking rate. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/zimbabwe-beat-sri-lanka-and-join-west-indies-in-finishing-t20-world-cup-group-stage-unbeaten' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/19/46061.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/zimbabwe-beat-sri-lanka-and-join-west-indies-in-finishing-t20-world-cup-group-stage-unbeaten' target='_blank' rel='noopener'>Zimbabwe beat Sri Lanka and join West Indies in finishing T20 World Cup group stage unbeaten</a></h3>
+<ul class='bullets'>
+<li>Brian Bennett finished what captain Sikandar Raza started as Zimbabwe beat Sri Lanka by six wickets to head into the T20 World Cup Super Eights unbeaten on Thursday.</li>
+<li>Zimbabwe topped a Group B including former champions Sri Lanka and Australia.</li>
+<li>Sri Lanka opted to bat first and notched 178-7 and Zimbabwe overhauled it with 182-4 and three balls to spare.</li>
+</ul>
+<div class='why'><b>Why:</b> Brian Bennett finished what captain Sikandar Raza started as Zimbabwe beat Sri Lanka by six wickets to head into the T20 World Cup Super Eights unbeaten on Thursday.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/zimbabwe-beat-sri-lanka-and-join-west-indies-in-finishing-t20-world-cup-group-stage-unbeaten' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='T20 World Cup: Dipendra Singh Airee propels Nepal to seven-wicket victory over Scotland Dipendra Singh Airee's whirlwind innings, combined with Sompal Kami's three wickets, helped Nepal secure a seven-wicket consolation win in this edition of the T20 World Cup. Dipendra Singh Airee's whirlwind innings, combined with Sompal Kami's three wickets, helped Nepal secure a seven-wicket consolation win in this edition of the T20 World Cup. Airee not only recorded the fastest T20 World Cup half-century for Nepal, reaching 50 in just 23 balls, but also guided the team to its first global-stage victory in 12 years. Chasing 171 runs for victory , Nepal reached the target with seven wickets and four balls to spare at the packed Wankhede Stadium in Mumbai, marking its overall third victory on the T20 World Cup stage. In the post-match presentation, Airee said, "I want to thank the fans for coming to Mumbai and giving us immense support and motivation. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/t20-world-cup-dipendra-singh-airee-propels-nepal-to-seven-wicket-victory-over-scotland' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/17/46028.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/t20-world-cup-dipendra-singh-airee-propels-nepal-to-seven-wicket-victory-over-scotland' target='_blank' rel='noopener'>T20 World Cup: Dipendra Singh Airee propels Nepal to seven-wicket victory over Scotland</a></h3>
+<ul class='bullets'>
+<li>Dipendra Singh Airee's whirlwind innings, combined with Sompal Kami's three wickets, helped Nepal secure a seven-wicket consolation win in this edition of the T20 World Cup.</li>
+<li>Airee not only recorded the fastest T20 World Cup half-century for Nepal, reaching 50 in just 23 balls, but also guided the team to its first global-stage victory in 12 years.</li>
+<li>Chasing 171 runs for victory , Nepal reached the target with seven wickets and four balls to spare at the packed Wankhede Stadium in Mumbai, marking its overall third victory on the T20 World Cup stage.</li>
+</ul>
+<div class='why'><b>Why:</b> Dipendra Singh Airee's whirlwind innings, combined with Sompal Kami's three wickets, helped Nepal secure a seven-wicket consolation win in this edition of the T20 World Cup.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/t20-world-cup-dipendra-singh-airee-propels-nepal-to-seven-wicket-victory-over-scotland' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+<article class='card' data-hay='Australia crashes out of T20 World Cup but Zimbabwe and New Zealand advance to Super 8s Australia, the 2021 champion, crashed out of cricket's T20 World Cup on Tuesday after Zimbabwe's Group B game against Ireland was abandoned because of rain without a ball being bowled. Australia, the 2021 champion, crashed out of cricket's T20 World Cup on Tuesday after Zimbabwe's Group B game against Ireland was abandoned because of rain without a ball being bowled. But the no-result in Pallekele meant Zimbabwe qualified for the second stage of the tournament for the first time. Earlier, Canada batter Yuvraj Samra's exhilarating century proved in vain as New Zealand advanced to the Super 8s with an eight-wicket win in Chennai. The 19-year-old Samra, who caught the eye last year when he smashed a 15-ball half century against Bahamas, became the first batter from an associate nation to score a hundred at the T20 World Cup. The Himalayan Times Sports'>
+<div class='card-media'>
+<a href='https://thehimalayantimes.com/sports/australia-crashes-out-of-t20-world-cup-but-zimbabwe-and-new-zealand-advance-to-super-8s' target='_blank' rel='noopener'><img src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/17/46025.jpg' alt='news image'></a>
+</div>
+<div class='card-body'>
+<div class='kicker'>
+<span class='badge'>Sports</span>
+<span style='color:var(--muted); font-size:12px;'>The Himalayan Times</span>
+</div>
+<h3 class='title'><a href='https://thehimalayantimes.com/sports/australia-crashes-out-of-t20-world-cup-but-zimbabwe-and-new-zealand-advance-to-super-8s' target='_blank' rel='noopener'>Australia crashes out of T20 World Cup but Zimbabwe and New Zealand advance to Super 8s</a></h3>
+<ul class='bullets'>
+<li>Australia, the 2021 champion, crashed out of cricket's T20 World Cup on Tuesday after Zimbabwe's Group B game against Ireland was abandoned because of rain without a ball being bowled.</li>
+<li>But the no-result in Pallekele meant Zimbabwe qualified for the second stage of the tournament for the first time.</li>
+<li>Earlier, Canada batter Yuvraj Samra's exhilarating century proved in vain as New Zealand advanced to the Super 8s with an eight-wicket win in Chennai.</li>
+</ul>
+<div class='why'><b>Why:</b> Australia, the 2021 champion, crashed out of cricket's T20 World Cup on Tuesday after Zimbabwe's Group B game against Ireland was abandoned because of rain without a ball being bowled.</div>
+<div class='actions'>
+<a class='btn' href='https://thehimalayantimes.com/sports/australia-crashes-out-of-t20-world-cup-but-zimbabwe-and-new-zealand-advance-to-super-8s' target='_blank' rel='noopener'>Open →</a>
+</div>
+</div></article>
+</div>
+<div class='footer'>Quick Sports • Updated every 30 minutes • 2026-03-02 16:58</div>
+</div></body></html>
