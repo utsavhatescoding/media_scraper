@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <title>Quick Sports</title>
+  <meta name='description' content='The game. The story. Right now.'>
+  <meta name='theme-color' content='#FAFAF8'>
+  <link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link href='https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap' rel='stylesheet'>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:#FAFAF8;
+  color:#111;
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+a:hover{color:#E8230A}
+img{display:block;max-width:100%;height:auto}
+
+:root{
+  --accent:#E8230A;
+  --ink:#0F0F0F;
+  --ink2:#333;
+  --muted:#777;
+  --rule:#E8E8E2;
+  --surface:#FFFFFF;
+  --bg:#FAFAF8;
+  --nav-h:56px;
+  --max:1200px;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+.hidden{display:none!important}
+
+/* ═══ TICKER ════════════════════════════════ */
+.ticker{
+  background:var(--ink);
+  color:#fff;
+  height:34px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  user-select:none;
+}
+.ticker__badge{
+  background:var(--accent);
+  height:100%;
+  display:flex;align-items:center;
+  padding:0 16px;
+  font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  white-space:nowrap;flex-shrink:0;gap:7px;
+}
+.ticker__dot{
+  width:6px;height:6px;border-radius:50%;background:#fff;
+  animation:blink 1.4s ease infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.ticker__track{
+  flex:1;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 40px,#000 calc(100% - 40px),transparent);
+  mask-image:linear-gradient(to right,transparent,#000 40px,#000 calc(100% - 40px),transparent);
+}
+.ticker__inner{
+  display:flex;white-space:nowrap;
+  animation:marquee 45s linear infinite;
+  will-change:transform;
+}
+.ticker__inner span{
+  padding:0 28px;font-size:12px;font-weight:500;
+  opacity:.85;border-right:1px solid rgba(255,255,255,.12);
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══ HEADER ════════════════════════════════ */
+.header{background:var(--surface);border-bottom:1px solid var(--rule)}
+.header__inner{
+  max-width:var(--max);margin:0 auto;padding:14px 20px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;gap:16px;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo__img{height:38px;width:38px;object-fit:contain;border-radius:8px}
+.logo__wordmark{
+  font-family:var(--serif);font-size:24px;font-weight:900;
+  letter-spacing:-.4px;line-height:1;color:var(--ink);
+}
+.logo__wordmark em{font-style:italic;color:var(--accent);font-weight:300}
+.logo__tag{font-size:10px;color:var(--muted);letter-spacing:.3px;margin-top:3px}
+.header__date{
+  text-align:center;font-size:11px;color:var(--muted);letter-spacing:.3px;
+  display:none;
+}
+@media(min-width:680px){.header__date{display:block}}
+.header__search{
+  display:flex;align-items:center;
+  background:#F3F3F0;border:1.5px solid transparent;
+  border-radius:100px;padding:8px 14px;gap:8px;
+  transition:border-color .15s,background .15s;
+  width:min(220px,42vw);
+}
+.header__search:focus-within{background:#fff;border-color:var(--accent)}
+.header__search svg{flex-shrink:0;color:var(--muted)}
+.header__search input{
+  border:none;outline:none;background:transparent;
+  font-size:13px;font-family:var(--sans);color:var(--ink);width:100%;
+}
+.header__search input::placeholder{color:var(--muted)}
+
+/* ═══ NAVBAR ════════════════════════════════ */
+.navbar{
+  background:var(--surface);border-bottom:1px solid var(--rule);
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 1px 8px rgba(0,0,0,.05);
+}
+.navbar__inner{
+  max-width:var(--max);margin:0 auto;padding:0 20px;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.navbar__links{
+  display:flex;align-items:center;overflow-x:auto;
+  scrollbar-width:none;flex:1;
+}
+.navbar__links::-webkit-scrollbar{display:none}
+.navbar__links a{
+  padding:0 13px;height:var(--nav-h);
+  display:inline-flex;align-items:center;
+  font-size:13px;font-weight:600;color:var(--ink2);
+  white-space:nowrap;border-bottom:2px solid transparent;
+  transition:color .12s,border-color .12s;
+}
+.navbar__links a:hover{color:var(--accent)}
+.navbar__links a.is-active{color:var(--accent);border-bottom-color:var(--accent)}
+.navbar__count{
+  font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0;
+  padding-left:12px;border-left:1px solid var(--rule);
+}
+
+/* ═══ PAGE ══════════════════════════════════ */
+.page{max-width:var(--max);margin:0 auto;padding:28px 20px 80px}
+@media(max-width:480px){.page{padding:18px 14px 90px}}
+
+/* ═══ SECTION HEADER ════════════════════════ */
+.sec{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec__label{
+  font-family:var(--serif);font-size:13px;font-weight:700;font-style:italic;
+  color:var(--accent);letter-spacing:.2px;white-space:nowrap;
+}
+.sec__rule{flex:1;height:1px;background:var(--rule)}
+.sec__more{
+  font-size:11px;font-weight:600;color:var(--muted);
+  letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;
+}
+.sec__more:hover{color:var(--accent)}
+
+/* ═══ HERO ══════════════════════════════════ */
+.hero{
+  position:relative;border-radius:12px;overflow:hidden;
+  margin-bottom:32px;min-height:400px;
+  background:var(--ink);
+  box-shadow:0 8px 40px rgba(0,0,0,.14);
+}
+.hero__img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:.75;
+  transition:transform .6s ease,opacity .3s;
+}
+.hero:hover .hero__img{transform:scale(1.025);opacity:.68}
+.hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(
+    to top,
+    rgba(8,8,8,.96) 0%,
+    rgba(8,8,8,.65) 38%,
+    rgba(8,8,8,.1)  70%,
+    transparent 100%
+  );
+}
+.hero__body{
+  position:relative;z-index:2;
+  padding:clamp(20px,5vw,44px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:400px;
+}
+.hero__meta{
+  display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;
+}
+.pill{
+  display:inline-flex;align-items:center;
+  padding:4px 11px;border-radius:100px;
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;line-height:1;
+}
+.pill--hot{background:var(--accent);color:#fff}
+.pill--glass{
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(4px);
+}
+.hero__title{
+  font-family:var(--serif);font-size:clamp(22px,3.8vw,42px);
+  font-weight:900;line-height:1.15;color:#fff;
+  margin-bottom:14px;max-width:24ch;
+  text-shadow:0 2px 16px rgba(0,0,0,.4);
+}
+.hero__title a:hover{color:rgba(255,255,255,.82)}
+.hero__why{
+  font-size:14px;color:rgba(255,255,255,.7);line-height:1.65;
+  max-width:52ch;margin-bottom:18px;
+  padding-left:13px;border-left:2px solid var(--accent);
+}
+.hero__bullets{
+  display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px;
+}
+.hero__bullets li{
+  list-style:none;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(6px);border-radius:6px;
+  padding:5px 11px;font-size:12px;color:rgba(255,255,255,.8);line-height:1.4;
+}
+.hero__cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;
+  font-size:13px;font-weight:700;padding:11px 22px;
+  border-radius:100px;letter-spacing:.2px;
+  transition:transform .15s,box-shadow .15s;width:fit-content;
+}
+.hero__cta:hover{
+  color:#fff;transform:translateY(-1px);
+  box-shadow:0 6px 22px rgba(232,35,10,.38);
+}
+.hero__cta svg{transition:transform .15s}
+.hero__cta:hover svg{transform:translateX(3px)}
+
+/* ═══ 2-COLUMN LAYOUT ═══════════════════════ */
+.layout{
+  display:grid;grid-template-columns:1fr;gap:32px;align-items:start;
+}
+@media(min-width:920px){.layout{grid-template-columns:1fr 296px}}
+
+/* ═══ MAGAZINE CARD GRID ════════════════════ */
+.cards{
+  display:grid;grid-template-columns:1fr;
+  gap:2px;background:var(--rule);
+  border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+}
+@media(min-width:540px){.cards{grid-template-columns:1fr 1fr}}
+@media(min-width:820px){
+  .cards--lead .card:first-child{grid-column:span 2}
+}
+
+/* CARD */
+.card{
+  background:var(--surface);display:flex;flex-direction:column;
+  transition:background .12s;position:relative;
+}
+.card:hover{background:#F8F8F5}
+.card__media{overflow:hidden;background:#EAE9E2;flex-shrink:0}
+.card__media img{
+  width:100%;height:192px;object-fit:cover;display:block;
+  transition:transform .45s cubic-bezier(.25,.46,.45,.94);
+}
+.card:hover .card__media img{transform:scale(1.04)}
+.cards--lead .card:first-child .card__media img{
+  height:clamp(190px,26vw,270px);
+}
+.card__media--empty{
+  width:100%;height:180px;
+  background:linear-gradient(135deg,#F0EFE8,#E4E3DC);
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;opacity:.45;
+}
+.card__body{
+  padding:15px 17px 17px;display:flex;flex-direction:column;flex:1;gap:8px;
+}
+.card__section{
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:var(--accent);
+}
+.card__title{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  line-height:1.35;color:var(--ink);
+}
+.cards--lead .card:first-child .card__title{font-size:clamp(16px,2vw,21px)}
+.card__title a:hover{color:var(--accent)}
+.card__why{
+  font-size:12.5px;color:#555;line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card__foot{
+  margin-top:auto;padding-top:11px;border-top:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.card__source{font-size:11px;color:var(--muted);font-weight:500}
+.card__link{
+  font-size:11px;font-weight:700;color:var(--accent);
+  display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px;
+  opacity:0;transition:opacity .15s;
+}
+.card:hover .card__link{opacity:1}
+
+/* HORIZONTAL CARD */
+.hcard{
+  display:grid;grid-template-columns:100px 1fr;
+  background:var(--surface);transition:background .12s;
+}
+.hcard:hover{background:#F8F8F5}
+.hcard__media{overflow:hidden;background:#EAE9E2}
+.hcard__media img{
+  width:100%;height:100%;min-height:88px;object-fit:cover;
+  transition:transform .4s ease;display:block;
+}
+.hcard:hover .hcard__media img{transform:scale(1.06)}
+.hcard__media--empty{
+  width:100%;height:100%;min-height:88px;
+  background:linear-gradient(135deg,#F0EFE8,#E4E3DC);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;opacity:.45;
+}
+.hcard__body{padding:11px 14px;display:flex;flex-direction:column;gap:5px}
+.hcard__section{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);
+}
+.hcard__title{
+  font-family:var(--serif);font-size:13px;font-weight:700;
+  line-height:1.35;color:var(--ink);
+}
+.hcard:hover .hcard__title{color:var(--accent)}
+.hcard__source{font-size:10px;color:var(--muted);margin-top:auto}
+
+/* ═══ SIDEBAR ═══════════════════════════════ */
+.sidebar{display:flex;flex-direction:column;gap:22px}
+.widget{
+  background:var(--surface);border-radius:10px;overflow:hidden;
+  border:1px solid var(--rule);
+}
+.widget__head{
+  padding:11px 15px;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:9px;
+}
+.widget__bar{width:3px;height:15px;background:var(--accent);border-radius:2px;flex-shrink:0}
+.widget__title{
+  font-family:var(--serif);font-size:14px;font-weight:700;font-style:italic;color:var(--ink);
+}
+
+/* Trending list */
+.tlist{list-style:none}
+.tlist li{border-bottom:1px solid var(--rule)}
+.tlist li:last-child{border-bottom:none}
+.tlist a{
+  display:grid;grid-template-columns:28px 1fr;align-items:start;
+  gap:9px;padding:11px 15px;transition:background .12s;
+}
+.tlist a:hover{background:#FAFAF8}
+.tlist__num{
+  font-family:var(--serif);font-size:19px;font-weight:900;font-style:italic;
+  color:var(--rule);line-height:1.1;transition:color .12s;
+}
+.tlist a:hover .tlist__num{color:var(--accent)}
+.tlist__text{
+  font-size:13px;font-weight:600;line-height:1.4;color:var(--ink2);
+  transition:color .12s;
+}
+.tlist a:hover .tlist__text{color:var(--accent)}
+
+/* Stats grid */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.stat-cell{
+  padding:13px 15px;
+  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.stat-cell:nth-child(even){border-right:none}
+.stat-cell:nth-last-child(-n+2){border-bottom:none}
+.stat-cell__val{
+  font-family:var(--serif);font-size:22px;font-weight:900;
+  color:var(--accent);line-height:1;margin-bottom:3px;
+}
+.stat-cell__label{
+  font-size:10px;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);font-weight:600;
+}
+
+/* ═══ EMPTY STATE ═══════════════════════════ */
+.empty{
+  grid-column:1/-1;padding:56px 20px;text-align:center;
+}
+.empty__icon{font-size:36px;margin-bottom:12px;opacity:.35}
+.empty__msg{
+  font-family:var(--serif);font-size:18px;font-style:italic;color:var(--muted);
+}
+
+/* ═══ MOBILE BOTTOM NAV ══════════════════════ */
+.bnav{
+  display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--surface);border-top:1px solid var(--rule);
+  box-shadow:0 -2px 16px rgba(0,0,0,.07);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+@media(min-width:740px){.bnav{display:none}}
+.bnav a{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;padding:9px 4px 7px;font-size:9px;font-weight:600;
+  letter-spacing:.4px;text-transform:uppercase;color:var(--muted);transition:color .12s;
+}
+.bnav a.is-active,.bnav a:hover{color:var(--accent)}
+
+/* ═══ FOOTER ════════════════════════════════ */
+.footer{background:var(--ink);color:rgba(255,255,255,.45)}
+.footer__top{
+  max-width:var(--max);margin:0 auto;padding:32px 20px 24px;
+  display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;
+}
+.footer__brand .name{
+  font-family:var(--serif);font-size:20px;font-weight:900;font-style:italic;
+  color:#fff;margin-bottom:5px;
+}
+.footer__brand .tag{font-size:12px;color:rgba(255,255,255,.35)}
+.footer__links{
+  display:flex;flex-wrap:wrap;gap:5px 18px;font-size:12px;align-items:flex-start;
+}
+.footer__links a:hover{color:#fff}
+.footer__bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:14px 20px;max-width:var(--max);margin:0 auto;
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:11px;
+}
+
+/* ═══ PAGE LOAD ══════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+.hero{animation:fadeUp .45s ease both}
+.layout{animation:fadeUp .45s .1s ease both}
+@media(min-width:920px){
+  .sidebar{animation:fadeUp .45s .2s ease both}
+}
+</style>
+
+<script>
+(function(){
+  function filter(){
+    var q=(document.getElementById('q').value||'').toLowerCase().trim();
+    var nodes=document.querySelectorAll('[data-hay]');
+    var shown=0;
+    nodes.forEach(function(n){
+      var m=!q||(n.getAttribute('data-hay')||'').toLowerCase().indexOf(q)>-1;
+      n.classList.toggle('hidden',!m);
+      if(m&&(n.classList.contains('card')||n.classList.contains('hcard')))shown++;
+    });
+    var hero=document.getElementById('hero-wrap');
+    if(hero){
+      var hm=!q||(hero.getAttribute('data-hay')||'').toLowerCase().indexOf(q)>-1;
+      hero.classList.toggle('hidden',!hm);
+    }
+    var empty=document.getElementById('empty');
+    if(empty)empty.classList.toggle('hidden',shown>0||!q);
+    var cnt=document.getElementById('story-count');
+    if(cnt)cnt.textContent=shown+' stor'+(shown===1?'y':'ies');
+  }
+  window.addEventListener('DOMContentLoaded',function(){
+    var inp=document.getElementById('q');
+    if(inp)inp.addEventListener('input',filter);
+    filter();
+  });
+})();
+</script>
+
+</head>
+<body>
+<div class='ticker' aria-hidden='true'>
+  <div class='ticker__badge'><div class='ticker__dot'></div>Breaking</div>
+  <div class='ticker__track'>
+    <div class='ticker__inner'><span>Yamal's curling strike gives Barcelona a hard-fought win at Athletic Bilbao</span><span>Last-gasp deflected strike by Valverde gives Real Madrid 2-1 victory at Celta Vigo</span><span>Atletico Madrid advances to Copa del Rey final 4-3 on aggregate despite a 3-0 loss to Barcelona</span><span>Allen's record-breaking century earns New Zealand big win over South Africa in T20 World Cup semis</span><span>Iran's World Cup place in US put in doubt by Middle East war. FIFA has Iraq next in line</span><span>War disrupts sports with doubt over Messi's 'Finalissima,' Ronaldo games and F1 races</span><span>Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga</span><span>Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies</span><span>Bodø/Glimt gets Sporting in Champions League round of 16. Real Madrid and Man City paired yet again</span><span>India crushes Zimbabwe to revive T20 World Cup hopes. Unbeaten South Africa advances to semifinals</span><span>Dortmund takes on Bayern but will der Klassiker live up to its name?</span><span>Unbeaten South Africa crushes West Indies by 9 wickets at T20 World Cup</span><span>United Cements pledges Rs 500,000 for treatment of national women's football captain Samba</span><span>Barcelona pounces on Real Madrid stumble and regains lead of La Liga with 3-0 win over Levante</span><span>T20 World Cup co-hosts lose as South Africa ends India's winning run and England beats Sri Lanka</span><span>Harry Kane scores 2 goals, concedes penalty as Bayern holds on to extend Bundesliga lead</span><span>Man City keeps pressure on Premier League leader Arsenal with win over Newcastle</span><span>T20 World Cup: Phil Salt and Will Jacks lead England past Sri Lanka in Super 8s</span><span>Millsberry Inter A-Level Basketball Tournament 2026 concludes with Malpi Institute dominating both finals</span><span>Barcelona hosts Levante in La Liga looking to rebound from consecutive losses</span><span>Yamal's curling strike gives Barcelona a hard-fought win at Athletic Bilbao</span><span>Last-gasp deflected strike by Valverde gives Real Madrid 2-1 victory at Celta Vigo</span><span>Atletico Madrid advances to Copa del Rey final 4-3 on aggregate despite a 3-0 loss to Barcelona</span><span>Allen's record-breaking century earns New Zealand big win over South Africa in T20 World Cup semis</span><span>Iran's World Cup place in US put in doubt by Middle East war. FIFA has Iraq next in line</span><span>War disrupts sports with doubt over Messi's 'Finalissima,' Ronaldo games and F1 races</span><span>Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga</span><span>Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies</span><span>Bodø/Glimt gets Sporting in Champions League round of 16. Real Madrid and Man City paired yet again</span><span>India crushes Zimbabwe to revive T20 World Cup hopes. Unbeaten South Africa advances to semifinals</span><span>Dortmund takes on Bayern but will der Klassiker live up to its name?</span><span>Unbeaten South Africa crushes West Indies by 9 wickets at T20 World Cup</span><span>United Cements pledges Rs 500,000 for treatment of national women's football captain Samba</span><span>Barcelona pounces on Real Madrid stumble and regains lead of La Liga with 3-0 win over Levante</span><span>T20 World Cup co-hosts lose as South Africa ends India's winning run and England beats Sri Lanka</span><span>Harry Kane scores 2 goals, concedes penalty as Bayern holds on to extend Bundesliga lead</span><span>Man City keeps pressure on Premier League leader Arsenal with win over Newcastle</span><span>T20 World Cup: Phil Salt and Will Jacks lead England past Sri Lanka in Super 8s</span><span>Millsberry Inter A-Level Basketball Tournament 2026 concludes with Malpi Institute dominating both finals</span><span>Barcelona hosts Levante in La Liga looking to rebound from consecutive losses</span></div>
+  </div>
+</div>
+<header class='header'>
+  <div class='header__inner'>
+    <a href='#' class='logo'>
+      <img class='logo__img' src='logo.png' alt='Quick Sports'>
+      <div>
+        <div class='logo__wordmark'>Quick <em>Sports</em></div>
+        <div class='logo__tag'>The game. The story. Right now.</div>
+      </div>
+    </a>
+    <div class='header__date'>Sunday, March 08 2026</div>
+    <div class='header__search'>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id='q' type='search' placeholder='Search stories…' autocomplete='off'>
+    </div>
+  </div>
+</header>
+<nav class='navbar'>
+  <div class='navbar__inner'>
+    <div class='navbar__links'>
+      <a href='#' class=' is-active'>Home</a>
+      <a href='#' class=''>Football</a>
+      <a href='#' class=''>Cricket</a>
+      <a href='#' class=''>Basketball</a>
+      <a href='#' class=''>Athletics</a>
+      <a href='#' class=''>Tennis</a>
+      <a href='#' class=''>More ▾</a>
+    </div>
+    <div class='navbar__count' id='story-count'>20 stories</div>
+  </div>
+</nav>
+<div class='page'>
+<div id='hero-wrap' data-hay='Yamal's curling strike gives Barcelona a hard-fought win at Athletic Bilbao Lamine Yamal once again showed his ability to decide a game when Barcelona's teenage star broke the deadlock with a gorgeous strike to earn a 1-0 win at Athletic Bilbao on Saturday. Lamine Yamal once again showed his ability to decide a game when Barcelona's teenage star broke the deadlock with a gorgeous strike to earn a 1-0 win at Athletic Bilbao on Saturday. The game was wide open with Athletic attacking in waves at its San Mames Stadium before Yamal tilted the match in the favor of the La Liga leaders. The 18-year-old Spain forward received a pass from Pedri González that finally left him with some room to work on the right side of the area, where he used one touch to open a shooting angle before curling a left-footed strike off the upper… The hard-fought away win at the Basque club came four days after Barcelona lost in the Copa del Rey semifinals to Atletico Madrid. The Himalayan Times Sports'>
+  <div class='sec'>
+    <span class='sec__label'>Top Story</span>
+    <div class='sec__rule'></div>
+  </div>
+  <div class='hero'>
+    <img class='hero__img' src='https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/08/46553.jpg' alt='' loading='eager'>
+    <div class='hero__body'>
+      <div class='hero__meta'>
+        <span class='pill pill--hot'>🔴 Top Story</span>
+        <span class='pill pill--glass'>Sports</span>
+        <span class='pill pill--glass'>The Himalayan Times</span>
+      </div>
+      <h1 class='hero__title'><a href='https://thehimalayantimes.com/sports/yamals-curling-strike-gives-barcelona-a-hard-fought-win-at-athletic-bilbao' target='_blank' rel='noopener'>Yamal's curling strike gives Barcelona a hard-fought win at Athletic Bilbao</a></h1>
+      <p class='hero__why'>Lamine Yamal once again showed his ability to decide a game when Barcelona's teenage star broke the deadlock with a gorgeous strike to earn a 1-0 win at Athletic Bilbao on Saturday.</p>
+      <ul class='hero__bullets'>
+        <li>Lamine Yamal once again showed his ability to decide a game when Barcelona's teenage star broke the deadlock with a gorgeous strike to earn a 1-0 win at Athletic Bilbao on Saturday.</li>
+        <li>The game was wide open with Athletic attacking in waves at its San Mames Stadium before Yamal tilted the match in the favor of the La Liga leaders.</li>
+        <li>The 18-year-old Spain forward received a pass from Pedri González that finally left him with some room to work on the right side of the area, where he used one touch to open a shooting angle before curling a left-footed strike off the upper…</li>
+        <li>The hard-fought away win at the Basque club came four days after Barcelona lost in the Copa del Rey semifinals to Atletico Madrid.</li>
+      </ul>
+      <a class='hero__cta' href='https://thehimalayantimes.com/sports/yamals-curling-strike-gives-barcelona-a-hard-fought-win-at-athletic-bilbao' target='_blank' rel='noopener'>
+        Read Full Story <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+<div class='layout'>
+<!-- MAIN COLUMN -->
+<div>
+  <div class='sec'>
+    <span class='sec__label'>Latest Stories</span>
+    <div class='sec__rule'></div>
+    <a class='sec__more' href='#'>View all</a>
+  </div>
+  <div class='cards cards--lead'>
+<article class="card" data-hay="Last-gasp deflected strike by Valverde gives Real Madrid 2-1 victory at Celta Vigo Real Madrid scored with a deflected shot in the 94th minute to win 2-1 at Celta Vigo on Friday and close the gap on La Liga leader Barcelona to one point. Real Madrid scored with a deflected shot in the 94th minute to win 2-1 at Celta Vigo on Friday and close the gap on La Liga leader Barcelona to one point. Madrid was seeking to avoid a run of three successive losses for the first time since 2018 and needed a massive dose of luck to secure all three points. It went ahead after 11 minutes when Aurélien Tchouaméni's shot from just inside the penalty box left the Celta keeper flatfooted. Celta's experienced striker Borja Iglesias equalized for the home side with his third goal in four games after 25 minutes, and strike partner Iago Aspas was unfortunate to see his shot come back off the post with two minutes remaining as bo… The Himalayan Times Sports">
+  <div class="card__media">
+    <a href="https://thehimalayantimes.com/sports/last-gasp-deflected-strike-by-valverde-gives-real-madrid-2-1-victory-at-celta-vigo" target="_blank" rel="noopener"><img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/07/46513.jpg" alt="" loading="lazy"></a>
+  </div>
+  <div class="card__body">
+    <div class="card__section">Sports</div>
+    <div class="card__title"><a href="https://thehimalayantimes.com/sports/last-gasp-deflected-strike-by-valverde-gives-real-madrid-2-1-victory-at-celta-vigo" target="_blank" rel="noopener">Last-gasp deflected strike by Valverde gives Real Madrid 2-1 victory at Celta Vigo</a></div>
+    <div class="card__why">Real Madrid scored with a deflected shot in the 94th minute to win 2-1 at Celta Vigo on Friday and close the gap on La Liga leader Barcelona to one point.</div>
+    <div class="card__foot">
+      <span class="card__source">The Himalayan Times</span>
+      <a class="card__link" href="https://thehimalayantimes.com/sports/last-gasp-deflected-strike-by-valverde-gives-real-madrid-2-1-victory-at-celta-vigo" target="_blank" rel="noopener">Read <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</article>
+<article class="card" data-hay="Atletico Madrid advances to Copa del Rey final 4-3 on aggregate despite a 3-0 loss to Barcelona Atletico Madrid just barely held on to its first-leg advantage against defending champion Barcelona in the Copa del Rey on Tuesday, advancing to its first Copa final in 13 years despite a 3-0 loss to the Catalan club. Atletico Madrid just barely held on to its first-leg advantage against defending champion Barcelona in the Copa del Rey on Tuesday, advancing to its first Copa final in 13 years despite a 3-0 loss to the Catalan club. Atletico advanced 4-3 on aggregate thanks to its 4-0 win in the first leg last month in Madrid. Diego Simeone's team will play in the final for the first time since it won its 10th Copa trophy in the 2012-13 season. Barcelona saw itself in a hole after being trounced in the first half of the first leg last month, conceding all four goals before the break at the Metropolitano stadium. The Himalayan Times Sports">
+  <div class="card__media">
+    <a href="https://thehimalayantimes.com/sports/atletico-madrid-advances-to-copa-del-rey-final-4-3-on-aggregate-despite-a-3-0-loss-to-barcelona" target="_blank" rel="noopener"><img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/05/46426.jpg" alt="" loading="lazy"></a>
+  </div>
+  <div class="card__body">
+    <div class="card__section">Sports</div>
+    <div class="card__title"><a href="https://thehimalayantimes.com/sports/atletico-madrid-advances-to-copa-del-rey-final-4-3-on-aggregate-despite-a-3-0-loss-to-barcelona" target="_blank" rel="noopener">Atletico Madrid advances to Copa del Rey final 4-3 on aggregate despite a 3-0 loss to Barcelona</a></div>
+    <div class="card__why">Atletico Madrid just barely held on to its first-leg advantage against defending champion Barcelona in the Copa del Rey on Tuesday, advancing to its first Copa final in 13 years despite a 3-0 loss to the Catalan club.</div>
+    <div class="card__foot">
+      <span class="card__source">The Himalayan Times</span>
+      <a class="card__link" href="https://thehimalayantimes.com/sports/atletico-madrid-advances-to-copa-del-rey-final-4-3-on-aggregate-despite-a-3-0-loss-to-barcelona" target="_blank" rel="noopener">Read <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</article>
+<article class="card" data-hay="Allen's record-breaking century earns New Zealand big win over South Africa in T20 World Cup semis New Zealand opener Finn Allen smashed the fastest-ever century in a T20 World Cup game to help the Kiwis defeat favorite South Africa by nine wickets in the first semifinal on Wednesday. New Zealand opener Finn Allen smashed the fastest-ever century in a T20 World Cup game to help the Kiwis defeat favorite South Africa by nine wickets in the first semifinal on Wednesday. Allen's blistering unbeaten 100 off 33 balls featured 10 fours and eight sixes and propelled New Zealand to 173-1 in only 12.5 overs to end South Africa's hopes of reaching its second successive final. Allen's ruthless power-hitting saw the right-hander smash Marco Jansen for 4-4-6-6-4 to reach one of the most memorable hundreds in the tournament's history and lift New Zealand to only its second final. South Africa, which came into the playoffs on the back of seven straight wins in the tournament that included seven-wicket win over the Kiwis in the group stage, had used Jansen's unbeaten 55 off 30 balls to score 169-8 after Mitchell Santn… The Himalayan Times Sports">
+  <div class="card__media">
+    <a href="https://thehimalayantimes.com/sports/allens-record-breaking-century-earns-new-zealand-big-win-over-south-africa-in-t20-world-cup-semis" target="_blank" rel="noopener"><img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/05/46423.jpg" alt="" loading="lazy"></a>
+  </div>
+  <div class="card__body">
+    <div class="card__section">Sports</div>
+    <div class="card__title"><a href="https://thehimalayantimes.com/sports/allens-record-breaking-century-earns-new-zealand-big-win-over-south-africa-in-t20-world-cup-semis" target="_blank" rel="noopener">Allen's record-breaking century earns New Zealand big win over South Africa in T20 World Cup semis</a></div>
+    <div class="card__why">New Zealand opener Finn Allen smashed the fastest-ever century in a T20 World Cup game to help the Kiwis defeat favorite South Africa by nine wickets in the first semifinal on Wednesday.</div>
+    <div class="card__foot">
+      <span class="card__source">The Himalayan Times</span>
+      <a class="card__link" href="https://thehimalayantimes.com/sports/allens-record-breaking-century-earns-new-zealand-big-win-over-south-africa-in-t20-world-cup-semis" target="_blank" rel="noopener">Read <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</article>
+<article class="card" data-hay="Iran's World Cup place in US put in doubt by Middle East war. FIFA has Iraq next in line Iran's place at the men's World Cup in three months was put in doubt Monday amid an escalating Middle East conflict sparked by the soccer tournament's co-host the United States. Iran's place at the men's World Cup in three months was put in doubt Monday amid an escalating Middle East conflict sparked by the soccer tournament's co-host the United States. Iran is due to play its three group stage games in the U.S. - two in Inglewood, California, then in Seattle - from June 15-26. Cities in Canada and Mexico also will host some of the 104 games. It is unclear if the state-backed Iranian soccer federation could refuse to send its team to the 48-nation tournament that starts June 11, or the U.S. government could effectively block the team. Here is a look at the issues in play: Asian soccer power Iran has one of the best national teams in Asia and has qualified for six of the past eight World Cups. The Himalayan Times Sports">
+  <div class="card__media">
+    <a href="https://thehimalayantimes.com/sports/irans-world-cup-place-in-us-put-in-doubt-by-middle-east-war-fifa-has-iraq-next-in-line" target="_blank" rel="noopener"><img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/03/46355.jpg" alt="" loading="lazy"></a>
+  </div>
+  <div class="card__body">
+    <div class="card__section">Sports</div>
+    <div class="card__title"><a href="https://thehimalayantimes.com/sports/irans-world-cup-place-in-us-put-in-doubt-by-middle-east-war-fifa-has-iraq-next-in-line" target="_blank" rel="noopener">Iran's World Cup place in US put in doubt by Middle East war. FIFA has Iraq next in line</a></div>
+    <div class="card__why">Iran's place at the men's World Cup in three months was put in doubt Monday amid an escalating Middle East conflict sparked by the soccer tournament's co-host the United States.</div>
+    <div class="card__foot">
+      <span class="card__source">The Himalayan Times</span>
+      <a class="card__link" href="https://thehimalayantimes.com/sports/irans-world-cup-place-in-us-put-in-doubt-by-middle-east-war-fifa-has-iraq-next-in-line" target="_blank" rel="noopener">Read <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</article>
+<article class="card" data-hay="War disrupts sports with doubt over Messi's 'Finalissima,' Ronaldo games and F1 races Lionel Messi, Cristiano Ronaldo and Lewis Hamilton are among the sports stars whose schedules are in doubt because of the spreading war in the Middle East. Lionel Messi, Cristiano Ronaldo and Lewis Hamilton are among the sports stars whose schedules are in doubt because of the spreading war in the Middle East. Cancelations and travel shutdowns are already affecting events since the United States and Israel launched a wave of strikes on Iran on Saturday. Organizers of Formula 1 and major soccer games face deciding within weeks whether they can go… Key upcoming events The clock is ticking for a decision on whether to cancel or move the "Finalissima" soccer game on March 27 between Spain and Argentina, the champions of Europe and South America. "UEFA is monitoring and carefully assessing all developments of the situation in cooperation with (South American soccer body) CONMEBOL and the (local organizing committee)," European soccer body UEFA told The Associated Press on Monday. The Himalayan Times Sports">
+  <div class="card__media">
+    <a href="https://thehimalayantimes.com/sports/war-disrupts-sports-with-doubt-over-messis-finalissima-ronaldo-games-and-f1-races" target="_blank" rel="noopener"><img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/02/46316.jpg" alt="" loading="lazy"></a>
+  </div>
+  <div class="card__body">
+    <div class="card__section">Sports</div>
+    <div class="card__title"><a href="https://thehimalayantimes.com/sports/war-disrupts-sports-with-doubt-over-messis-finalissima-ronaldo-games-and-f1-races" target="_blank" rel="noopener">War disrupts sports with doubt over Messi's 'Finalissima,' Ronaldo games and F1 races</a></div>
+    <div class="card__why">Lionel Messi, Cristiano Ronaldo and Lewis Hamilton are among the sports stars whose schedules are in doubt because of the spreading war in the Middle East.</div>
+    <div class="card__foot">
+      <span class="card__source">The Himalayan Times</span>
+      <a class="card__link" href="https://thehimalayantimes.com/sports/war-disrupts-sports-with-doubt-over-messis-finalissima-ronaldo-games-and-f1-races" target="_blank" rel="noopener">Read <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</article>
+    <div id='empty' class='empty hidden'>
+      <div class='empty__icon'>🔍</div>
+      <div class='empty__msg'>No stories match your search.</div>
+    </div>
+  </div>
+  <div class='sec' style='margin-top:26px'>
+    <span class='sec__label'>More Stories</span>
+    <div class='sec__rule'></div>
+  </div>
+  <div class='cards' style='grid-template-columns:1fr'>
+<a class="hcard" href="https://thehimalayantimes.com/sports/kane-scores-2-more-as-bayern-beats-dortmund-in-klassiker-to-open-11-point-lead-in-bundesliga" target="_blank" rel="noopener" data-hay="Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga Harry Kane scored twice again and Bayern Munich opened an 11-point lead in the Bundesliga with a 3-2 win at Borussia Dortmund in Der Klassiker on Saturday. Harry Kane scored twice again and Bayern Munich opened an 11-point lead in the Bundesliga with a 3-2 win at Borussia Dortmund in Der Klassiker on Saturday. Joshua Kimmich let fly with his left boot to score the winner with a volley in the 87th minute, just four minutes after Daniel Svensson equalized for Dortmund with a brilliant volley inside the left post. Nico Schlotterbeck put Dortmund 1-0 up at the break, but Serge Gnabry set up Kane's response and the England star got his second from the penalty spot - after a foul by Schlotterbeck on Josip Stanišić - to take his league tally to 30 goals… Dortmund disappointed It's the second painful defeat for Dortmund in as many games after its Champions League exit to Atalanta on Wednesday despite going into their playoff second leg with a 2-0 advantage. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/02/46307.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/samson-powers-india-to-semifinals-at-t20-world-cup-with-5-wicket-win-over-west-indies" target="_blank" rel="noopener" data-hay="Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies Defending champion and co-host India got the last semifinal spot at cricket's T20 World Cup after a five-wicket win over West Indies in the Super Eights on Sunday with four balls remaining. Defending champion and co-host India got the last semifinal spot at cricket's T20 World Cup after a five-wicket win over West Indies in the Super Eights on Sunday with four balls remaining. After West Indies lost the toss and posted a challenging 195-4, opener Sanju Samson led India to 199-5 in 19.2 overs with a belligerent unbeaten 97 off 50 balls in front of a home crowd of 68,000 at Kolkata's Eden Gardens. South Africa stays unbeaten All-rounder George Linde – brought in for the game to rest Keshav Maharaj – picked up 1-22 in three overs and then scored a crucial 30 not out off 21 balls batting at No. Dewald Brevis hit 42 off 18 balls with four sixes, while Tristan Stubbs anchored the innings home with 21 not out off 24 balls, as South Africa finished with 154-5 in 17.5 overs. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/03/01/46306.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/bodglimt-gets-sporting-in-champions-league-round-of-16-real-madrid-and-man-city-paired-yet-again" target="_blank" rel="noopener" data-hay="Bodø/Glimt gets Sporting in Champions League round of 16. Real Madrid and Man City paired yet again Bodø/Glimt's stunning run as the most unlikely Champions League challenger in recent years now brings Sporting Lisbon to its Arctic Circle home in the round of 16 next month. Bodø/Glimt's stunning run as the most unlikely Champions League challenger in recent years now brings Sporting Lisbon to its Arctic Circle home in the round of 16 next month. Bodø/Glimt evaded a possible quick rematch with Manchester City when the 2023 title winner was paired with Real Madrid yet again in Friday's draw. It will be the fifth straight year that record 15-time European champion Madrid and Man City clash in the knockout phase, and they also met in December in the league phase. Man City's 3-1 loss in the Norwegian fishing town last month sent Bodø/Glimt on a four-win surge in the Champions League - all during the Norwegian offseason - capped by eliminating Inter Milan from the knockout playoffs round in San Siro t… The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/27/46269.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Bodø/Glimt gets Sporting in Champions League round of 16. Real Madrid and Man City paired yet again</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/india-crushes-zimbabwe-to-revive-t20-world-cup-hopes-unbeaten-south-africa-advances-to-semifinals" target="_blank" rel="noopener" data-hay="India crushes Zimbabwe to revive T20 World Cup hopes. Unbeaten South Africa advances to semifinals India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. South Africa beat West Indies by nine wickets to ad… India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. South Africa beat West Indies by nine wickets to ad… Hardik Pandya scored 50 not out off 23 balls, Tilak Varma smashed 44 not out off only 16 deliveries and Abhishek Sharma found form with a 30-ball 55 in defending champion India's 256-4 in 20 overs - second only to Sri Lanka's 260-6 against… India posted the second-highest total in the history of the men's T20 World Cup as its batters gave home fans a show of sixes in a 72-run win over Zimbabwe in the Super Eights on Thursday. India hit 17 sixes in all – its highest in a T20 World Cup innings - after Zimbabwe won the toss and opted to bowl. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/27/46267.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">India crushes Zimbabwe to revive T20 World Cup hopes. Unbeaten South Africa advances to semifinals</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/dortmund-takes-on-bayern-but-will-der-klassiker-live-up-to-its-name" target="_blank" rel="noopener" data-hay="Dortmund takes on Bayern but will der Klassiker live up to its name? Der Klassiker is in danger of not living up to its name. Der Klassiker is in danger of not living up to its name. The growing gulf between Bayern Munich and Borussia Dortmund means German soccer's showpiece presents more of an opportunity for Bayern to display its superiority than for Dortmund to mount a genuine challenge to the Bavarian powerhouse. Dortmund hosts Bayern on Saturday for a meeting of the Bundesliga's top two, but it's unlikely to have any impact on the title race. In Dortmund's case it was to Bayern, 2-1 in the reverse fixture in Munich in October. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/26/46253.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Dortmund takes on Bayern but will der Klassiker live up to its name?</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/unbeaten-south-africa-crushes-west-indies-by-9-wickets-at-t20-world-cup" target="_blank" rel="noopener" data-hay="Unbeaten South Africa crushes West Indies by 9 wickets at T20 World Cup South Africa took a giant leap toward the Twenty20 World Cup semifinals after a dominant nine-wicket win over the high-flying West Indies on Thursday. South Africa took a giant leap toward the Twenty20 World Cup semifinals after a dominant nine-wicket win over the high-flying West Indies on Thursday. A whirlwind 95-run opening partnership between captain Aiden Markram (82 not out) and Quinton de Kock (47) in eight overs made short work of the chase. Ryan Rickelton added 45 not out and South Africa motored to 177-1 in 16.1 overs and stre… Ryan Rickelton added 45 not out and South Africa motored to 177-1 in 16.1 overs and stretched its unbeaten record in the tournament to six games, four of the wins in Ahmedabad. The Proteas play Zimbabwe in their last second-round game on Sunday, when the West Indies, which lost its first game in the tournament, faces co-host India. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/26/46252.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Unbeaten South Africa crushes West Indies by 9 wickets at T20 World Cup</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/united-cements-pledges-rs-500000-for-treatment-of-national-womens-football-captain-samba" target="_blank" rel="noopener" data-hay="United Cements pledges Rs 500,000 for treatment of national women's football captain Samba United Cements Ltd. has said financial assistance of Rs 500,000 for the medical treatment of Sabitra Bhandari, captain of Nepal's national women's football team. United Cements Ltd. has said financial assistance of Rs 500,000 for the medical treatment of Sabitra Bhandari, captain of Nepal's national women's football team. The company, a subsidiary of the KL Dugar Group, said the support was extended following public appeals after Bhandari sustained a serious knee injury that has kept her off the field. She has been undergoing rehabilitation for the past seve… The company, a subsidiary of the KL Dugar Group, said the support was extended following public appeals after Bhandari sustained a serious knee injury that has kept her off the field. In a statement, United Cements described Bhandari as a source of national pride who has played a pivotal role in elevating Nepali women's football on the international stage. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/25/46217.png" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">United Cements pledges Rs 500,000 for treatment of national women's football captain Samba</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/barcelona-pounces-on-real-madrid-stumble-and-regains-lead-of-la-liga-with-3-0-win-over-levante" target="_blank" rel="noopener" data-hay="Barcelona pounces on Real Madrid stumble and regains lead of La Liga with 3-0 win over Levante Barcelona took advantage of Real Madrid's stumble and regained the Spanish league lead with a comfortable 3-0 win over relegation-threatened Levante on Sunday. Barcelona took advantage of Real Madrid's stumble and regained the Spanish league lead with a comfortable 3-0 win over relegation-threatened Levante on Sunday. Marc Bernal, Frenkie de Jong and Fermín López scored a goal each as Barcelona ended a two-game losing streak to get back in front of rival Madrid, which lost 2-1 at Osasuna on Saturday. Barcelona moved one point ahead of Madrid, which had won eight in a row in the league before losing to Osasuna. Barcelona was coming off a 2-1 loss to Girona in the league and a 4-0 loss to Atletico Madrid in the first leg of the Copa del Rey semifinals. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/23/46177.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Barcelona pounces on Real Madrid stumble and regains lead of La Liga with 3-0 win over Levante</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/t20-world-cup-co-hosts-lose-as-south-africa-ends-indias-winning-run-and-england-beats-sri-lanka" target="_blank" rel="noopener" data-hay="T20 World Cup co-hosts lose as South Africa ends India's winning run and England beats Sri Lanka South Africa stunned T20 World Cup defending champion India with a 76-run victory on Sunday in the Super Eights with the tournament co-host dismissed for 111. South Africa stunned T20 World Cup defending champion India with a 76-run victory on Sunday in the Super Eights with the tournament co-host dismissed for 111. It was a completely dominant performance from the Proteas, which lost to India in the final of the 2024 edition. Sunday proved to be a dismal day for both co-hosts at the T20 World Cup as Sri Lanka crashed to a 51-run defeat to England in Pallekele. Dewald Brevis hit 45 runs off 29 balls, and put on 97 off 50 balls with Miller for the fourth wicket to change the momentum. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/23/46173.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">T20 World Cup co-hosts lose as South Africa ends India's winning run and England beats Sri Lanka</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/harry-kane-scores-2-goals-concedes-penalty-as-bayern-holds-on-to-extend-bundesliga-lead" target="_blank" rel="noopener" data-hay="Harry Kane scores 2 goals, concedes penalty as Bayern holds on to extend Bundesliga lead Harry Kane scored twice but conceded a penalty as Bayern Munich held on to beat Eintracht Frankfurt 3-2 to extend its Bundesliga lead on Saturday. Harry Kane scored twice but conceded a penalty as Bayern Munich held on to beat Eintracht Frankfurt 3-2 to extend its Bundesliga lead on Saturday. Borussia Dortmund failed to keep pace as it was held 2-2 at Leipzig in the late game. Fábio Silva scored in stoppage time for Dortmund to salvage a point before it faces Bayern at home in "der Klassiker" next Saturday. But Bayern's win means Dortmund has fallen eight points behind the defending champion and that it will take an unlikely collapse from Vincent Kompany's team in the final 11 rounds to stop the Bavarian powerhouse from celebrating again. Bayern relief Aleksandar Pavlović scored early against Frankfurt and Bayern seemed to be cruising when Kane scored his league-leading 27th and 28th goals of the season, one in each half. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46146.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Harry Kane scores 2 goals, concedes penalty as Bayern holds on to extend Bundesliga lead</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/man-city-keeps-pressure-on-premier-league-leader-arsenal-with-win-over-newcastle" target="_blank" rel="noopener" data-hay="Man City keeps pressure on Premier League leader Arsenal with win over Newcastle The pressure is on Arsenal after Manchester City cut its lead at the top of the Premier League to two points on Saturday. The pressure is on Arsenal after Manchester City cut its lead at the top of the Premier League to two points on Saturday. Second-place City beat Newcastle 2-1 to turn the heat up on the title race. City on the march The momentum is with City at the top of the standings having cut back Arsenal's lead, which was nine points earlier this month. It took an 88th-minute equalizer from substitute Tammy Abraham to rescue a point for Villa - but the draw means Unai Emery's team could be cut further adrift of Arsenal and Manchester City at the top of the standings. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46141.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Man City keeps pressure on Premier League leader Arsenal with win over Newcastle</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/t20-world-cup-phil-salt-and-will-jacks-lead-england-past-sri-lanka-in-super-8s" target="_blank" rel="noopener" data-hay="T20 World Cup: Phil Salt and Will Jacks lead England past Sri Lanka in Super 8s Phil Salt and Will Jacks provided England a perfect start in the Super Eights as co-host Sri Lanka crashed to a 51-run defeat on Sunday. Phil Salt and Will Jacks provided England a perfect start in the Super Eights as co-host Sri Lanka crashed to a 51-run defeat on Sunday. Salt anchored England to 146-9 with a resolute 62 off 40 balls and Jacks provided impetus to the total by smashing four boundaries in his 21-run knock in the death overs. Jofra Archer (2-20) struck with a vital blow in his second over when Pathum Nissanka, who scored a century against Australia at the same venue during a group game, flicked a 150 kph delivery straight to deep mid-wicket. Captain Dasun Shanaka top-scored with 30 but fell to a brilliant relay catch when Jacks caught the ball above his head while running back and tossed the ball back to Tom Banton to complete the catch before Jacks went over the ropes. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46140.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">T20 World Cup: Phil Salt and Will Jacks lead England past Sri Lanka in Super 8s</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/millsberry-inter-a-level-basketball-tournament-2026-concludes-with-malpi-institute-dominating-both-finals" target="_blank" rel="noopener" data-hay="Millsberry Inter A-Level Basketball Tournament 2026 concludes with Malpi Institute dominating both finals The Millsberry Inter A-Level Basketball Tournament 2026 wrapped up successfully on Sunday, showcasing top-level competition, teamwork, and sportsmanship among leading A-Level institutions. The Millsberry Inter A-Level Basketball Tournament 2026 wrapped up successfully on Sunday, showcasing top-level competition, teamwork, and sportsmanship among leading A-Level institutions. In the Girls' Final, Malpi Institute beat Global College 4–2 in a tightly contested match, demonstrating strong defense and composure under pressure. Srijana Giri of Malpi Institute was named the Most Valuable Player (MVP) for her outstandi… In the Girls' Final, Malpi Institute beat Global College 4–2 in a tightly contested match, demonstrating strong defense and composure under pressure. Malpi Institute emerged victorious with a 19–13 win, with Saeran Shrestha earning the MVP title for his exceptional contribution on the court. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/22/46137.png" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Millsberry Inter A-Level Basketball Tournament 2026 concludes with Malpi Institute dominating both finals</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+<a class="hcard" href="https://thehimalayantimes.com/sports/barcelona-hosts-levante-in-la-liga-looking-to-rebound-from-consecutive-losses" target="_blank" rel="noopener" data-hay="Barcelona hosts Levante in La Liga looking to rebound from consecutive losses Barcelona has to tighten up the defense to halt a two-game losing streak and stay close to Real Madrid in the fight for the La Liga title. Barcelona has to tighten up the defense to halt a two-game losing streak and stay close to Real Madrid in the fight for the La Liga title. Barcelona hosts second-to-last Levante on Sunday after conceding six goals in its last two matches. It lost 4-0 to Atletico Madrid in the Copa del Rey and 2-1 to Girona on Monday that cost Barcelona the league lead. Lamine Yamal missed a pe… Barcelona was fortunate against Atletico in the first leg of the Copa semifinals to be down only 4-0 by halftime on the run of play. "They started with a lot of intensity and by scoring an early goal it disrupted our plans and from then on it was very difficult for us to be protagonists in the game," Cubarsí said about the loss to Atletico. The Himalayan Times Sports">
+  <div class="hcard__media">
+    <img src="https://thehimalayantimes.com/thehimalayantimes/uploads/images/2026/02/20/46086.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcard__body">
+    <div class="hcard__section">Sports</div>
+    <div class="hcard__title">Barcelona hosts Levante in La Liga looking to rebound from consecutive losses</div>
+    <div class="hcard__source">The Himalayan Times</div>
+  </div>
+</a>
+  </div>
+</div>
+<aside class='sidebar'>
+  <div class='widget'>
+    <div class='widget__head'><div class='widget__bar'></div><div class='widget__title'>Trending Now</div></div>
+    <ul class='tlist'>
+    <li><a href='https://thehimalayantimes.com/sports/yamals-curling-strike-gives-barcelona-a-hard-fought-win-at-athletic-bilbao' target='_blank' rel='noopener'>
+      <span class='tlist__num'>01</span>
+      <span class='tlist__text'>Yamal's curling strike gives Barcelona a hard-fought win at Athletic Bilbao</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/last-gasp-deflected-strike-by-valverde-gives-real-madrid-2-1-victory-at-celta-vigo' target='_blank' rel='noopener'>
+      <span class='tlist__num'>02</span>
+      <span class='tlist__text'>Last-gasp deflected strike by Valverde gives Real Madrid 2-1 victory at Celta Vigo</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/atletico-madrid-advances-to-copa-del-rey-final-4-3-on-aggregate-despite-a-3-0-loss-to-barcelona' target='_blank' rel='noopener'>
+      <span class='tlist__num'>03</span>
+      <span class='tlist__text'>Atletico Madrid advances to Copa del Rey final 4-3 on aggregate despite a 3-0 loss to Barcelona</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/allens-record-breaking-century-earns-new-zealand-big-win-over-south-africa-in-t20-world-cup-semis' target='_blank' rel='noopener'>
+      <span class='tlist__num'>04</span>
+      <span class='tlist__text'>Allen's record-breaking century earns New Zealand big win over South Africa in T20 World Cup semis</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/irans-world-cup-place-in-us-put-in-doubt-by-middle-east-war-fifa-has-iraq-next-in-line' target='_blank' rel='noopener'>
+      <span class='tlist__num'>05</span>
+      <span class='tlist__text'>Iran's World Cup place in US put in doubt by Middle East war. FIFA has Iraq next in line</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/war-disrupts-sports-with-doubt-over-messis-finalissima-ronaldo-games-and-f1-races' target='_blank' rel='noopener'>
+      <span class='tlist__num'>06</span>
+      <span class='tlist__text'>War disrupts sports with doubt over Messi's 'Finalissima,' Ronaldo games and F1 races</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/kane-scores-2-more-as-bayern-beats-dortmund-in-klassiker-to-open-11-point-lead-in-bundesliga' target='_blank' rel='noopener'>
+      <span class='tlist__num'>07</span>
+      <span class='tlist__text'>Kane scores 2 more as Bayern beats Dortmund in Klassiker to open 11-point lead in Bundesliga</span>
+    </a></li>
+    <li><a href='https://thehimalayantimes.com/sports/samson-powers-india-to-semifinals-at-t20-world-cup-with-5-wicket-win-over-west-indies' target='_blank' rel='noopener'>
+      <span class='tlist__num'>08</span>
+      <span class='tlist__text'>Samson powers India to semifinals at T20 World Cup with 5-wicket win over West Indies</span>
+    </a></li>
+    </ul>
+  </div>
+  <div class='widget'>
+    <div class='widget__head'><div class='widget__bar'></div><div class='widget__title'>Feed Stats</div></div>
+    <div class='stat-grid'>
+      <div class='stat-cell'><div class='stat-cell__val'>20</div><div class='stat-cell__label'>Stories</div></div>
+      <div class='stat-cell'><div class='stat-cell__val'>30m</div><div class='stat-cell__label'>Refresh</div></div>
+      <div class='stat-cell'><div class='stat-cell__val'>5+</div><div class='stat-cell__label'>Sources</div></div>
+      <div class='stat-cell'><div class='stat-cell__val'>Live</div><div class='stat-cell__label'>Status</div></div>
+    </div>
+  </div>
+</aside>
+</div>
+</div>
+<footer class='footer'>
+  <div class='footer__top'>
+    <div class='footer__brand'>
+      <div class='name'>Quick Sports</div>
+      <div class='tag'>The game. The story. Right now.</div>
+    </div>
+    <div class='footer__links'>
+      <a href='#'>Home</a>
+      <a href='#'>About</a>
+      <a href='#'>Contact</a>
+      <a href='#'>Privacy</a>
+      <a href='#'>Terms</a>
+      <a href='#'>RSS</a>
+    </div>
+  </div>
+  <div class='footer__bottom'>
+    <span>&copy; 2026 Quick Sports. All rights reserved.</span>
+    <span>Last updated: 2026-03-08 22:30</span>
+  </div>
+</footer>
+<nav class='bnav' aria-label='Mobile'>
+  <a href='#' class=' is-active'><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+  <a href='#' class=''><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a>
+  <a href='#' class=''><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Sport</a>
+  <a href='#' class=''><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Saved</a>
+</nav>
+</body>
+</html>
